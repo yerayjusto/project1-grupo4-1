@@ -31,3 +31,12 @@
   left: 100px;
   position: absolute;
 }
+
+#goal {
+  background-color: green;
+  width: 20px;
+  height: 60px;
+  top: 300px;
+  left: 590px;
+  position: absolute;
+}

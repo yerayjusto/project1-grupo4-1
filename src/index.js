@@ -16,29 +16,46 @@ Player.prototype.move = function (value) {
       // Si tengo colision con el canvas
       if (this.top - this.distance >= 0) {
         // Si tengo colision con el enemigo
-        if (colisionEnemy(this, this.distance, 0, 0, 0) === false) {
-          this.top -= this.distance
+        if (colision(enemy, this.distance, 0, 0, 0) === false) {
+          // Si tengo colision con el goal
+          if (colision(goal, this.distance, 0, 0, 0) === true) {
+            console.log('Win')
+          } else {
+            this.top -= this.distance
+          }
         }
       }
       break
     case 'ArrowRight':
       if (this.left + this.distance + this.width <= canvas.width) {
-        if (colisionEnemy(this, 0, this.distance, 0, 0) === false) {
-          this.left += this.distance
+        if (colision(enemy, 0, this.distance, 0, 0) === false) {
+          if (colision(goal, 0, this.distance, 0, 0) === true) {
+            console.log('Win')
+          } else {
+            this.left += this.distance
+          }
         }
       }
       break
     case 'ArrowDown':
       if (this.top + this.distance + this.height <= canvas.height) {
-        if (colisionEnemy(this, 0, 0, this.distance, 0) === false) {
-          this.top += this.distance
+        if (colision(enemy, 0, 0, this.distance, 0) === false) {
+          if (colision(goal, 0, 0, this.distance, 0) === true) {
+            console.log('Win')
+          } else {
+            this.top += this.distance
+          }
         }
       }
       break
     case 'ArrowLeft':
       if (this.left - this.distance >= 0) {
-        if (colisionEnemy(this, 0, 0, 0, this.distance) === false) {
-          this.left -= this.distance
+        if (colision(enemy, 0, 0, 0, this.distance) === false) {
+          if (colision(goal, 0, 0, 0, this.distance) === true) {
+            console.log('Win') 
+          } else {
+            this.left -= this.distance
+          }
         }
       }
       break
@@ -61,12 +78,18 @@ const enemy = {
   height: 60
 }
 
-function colisionEnemy (player, up, right, down, left) {
-  console.log('hh')
-  if ((player.left - left < enemy.left + enemy.width) &&
-      (player.top - up < enemy.top + enemy.height) &&
-      (enemy.left < player.left + player.width + right) &&
-      (enemy.top < player.top + player.height + down)) {
+const goal = {
+  top: 300,
+  left: 590,
+  width: 20,
+  height: 60
+}
+
+function colision (collidedObj, up, right, down, left) {
+  if ((mario.left - left < collidedObj.left + collidedObj.width) &&
+      (mario.top - up < collidedObj.top + collidedObj.height) &&
+      (collidedObj.left < mario.left + mario.width + right) &&
+      (collidedObj.top < mario.top + mario.height + down)) {
     return true
   } else {
     return false
