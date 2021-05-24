@@ -1,6 +1,6 @@
 .container {
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
 }
@@ -14,11 +14,20 @@
   }
 
 
-#test {
+#player {
   background-color: blue;
-  width: 100px;
-  height: 100px;
+  width: 40px;
+  height: 60px;
   top: 10px;
   left: 10px;
+  position: absolute;
+}
+
+#enemy {
+  background-color: red;
+  width: 40px;
+  height: 60px;
+  top: 100px;
+  left: 100px;
   position: absolute;
 }
