@@ -6,7 +6,7 @@ function Player (top, left, id) {
   this.left = left
   this.elem = id
   this.distance = 10
-  this.direction
+  this.direction = 0
 }
 
 Player.prototype.setDirection = function (value) {

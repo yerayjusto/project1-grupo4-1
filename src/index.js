@@ -40,13 +40,12 @@ function collisionCanvas (targetObj) {
 
 const playerElement = document.getElementById('player')
 const enemyElement = document.getElementById('enemy')
+const pathArr = [1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3]
 
 const mario = new Player(10, 10, playerElement)
-const browser = new Enemy(100, 100, enemyElement)
+const browser = new Enemy(100, 100, enemyElement, pathArr)
 
 // Prueba movimiento
-const i = 1
-const count = 1
 
 setInterval(function () {
   if (mario.direction !== 0) {
@@ -61,19 +60,14 @@ setInterval(function () {
       mario.move()
     }
   }
-  
-
-  /* if (count <= 100) {
-    browser.move(i)
-    count++
-  } else {
-    i++
-    if (i > 4) {
-      i = 1
+  if (browser.getDirection !== 0) {
+    const browserNextPos = browser.getNextPosition()
+    if (colision(browserNextPos, mario)) {
+      console.log('enemigo2')
     }
-    count =
-  } */
-}, 20)
+    browser.move()
+  }
+}, 50)
 
 // Teclas
 window.addEventListener('keydown', function (e) {

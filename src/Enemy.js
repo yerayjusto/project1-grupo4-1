@@ -1,14 +1,16 @@
-function Enemy (top, left, id) {
+function Enemy (top, left, id, path) {
   this.width = 40
   this.height = 60
   this.top = top
   this.left = left
   this.elem = id
   this.distance = 1
+  this.count = 0
+  this.path = path
 }
 
-Enemy.prototype.move = function (value) {
-  switch (value) {
+Enemy.prototype.move = function () {
+  switch (this.path[this.count]) {
     case 1:
       this.top -= this.distance
       break
@@ -22,8 +24,19 @@ Enemy.prototype.move = function (value) {
       this.left -= this.distance
       break
   }
+
+  if (this.path.length < this.count) {
+    this.count = 0
+  } else {
+    this.count++
+  }
+
   this.elem.style.top = this.top + 'px'
   this.elem.style.left = this.left + 'px'
+}
+
+Enemy.prototype.getDirection = function () {
+  return this.path[this.count]
 }
 
 Enemy.prototype.getNextPosition = function () {
@@ -34,7 +47,7 @@ Enemy.prototype.getNextPosition = function () {
     height: this.height
   }
 
-  switch (this.direction) {
+  switch (this.path[this.count]) {
     case 1:
       position.top -= this.distance
       break
