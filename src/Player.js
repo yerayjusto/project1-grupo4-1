@@ -5,8 +5,13 @@ function Player (top, left, id) {
   this.top = top
   this.left = left
   this.elem = id
-  this.distance = 10
+  this.distance = 5
   this.direction = 0
+
+  this.setInitialPosition = function () {
+    this.elem.style.top = this.top + 'px'
+    this.elem.style.left = this.left + 'px'
+  }
 }
 
 Player.prototype.setDirection = function (value) {
@@ -71,4 +76,9 @@ Player.prototype.getNextPosition = function () {
       break
   }
   return position
+}
+
+Player.prototype.destroyPlayer = function () {
+  const canvas = document.getElementById('canvas')
+  canvas.removeChild(this.elem)
 }

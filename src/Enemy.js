@@ -8,6 +8,7 @@ function Enemy (top, left, id, path, distance) {
   this.elem = ''
   this.distance = distance
   this.count = 0
+  this.innerCount = 0
   this.path = path
   this.html = ''
 
@@ -18,14 +19,14 @@ function Enemy (top, left, id, path, distance) {
     this.elem.style.top = this.top + 'px'
     this.elem.style.left = this.left + 'px'
     console.log(this.top, this.left)
-    var canvas = document.getElementById('canvas')
+    const canvas = document.getElementById('canvas')
     canvas.appendChild(this.elem)
     this.elem = document.getElementById(this.id)
   }
 }
 
 Enemy.prototype.move = function () {
-  switch (this.path[this.count]) {
+  switch (this.path[this.count].direction) {
     case 1:
       this.top -= this.distance
       break
@@ -39,12 +40,23 @@ Enemy.prototype.move = function () {
       this.left -= this.distance
       break
   }
-
-  if (this.path.length < this.count) {
+  /* if (this.path.length < this.count) {
     this.count = 0
   } else {
     this.count++
+  } */
+
+  if (this.innerCount >= this.path[this.count].times) {
+    this.innerCount = 0
+    this.count++
+  } else {
+    this.innerCount++
   }
+
+  if (this.count >= this.path.length) {
+    this.count = 0
+  }
+
   this.elem.style.top = this.top + 'px'
   this.elem.style.left = this.left + 'px'
 }
@@ -76,4 +88,9 @@ Enemy.prototype.getNextPosition = function () {
       break
   }
   return position
+}
+
+Enemy.prototype.destroyEnemy = function () {
+  const canvas = document.getElementById('canvas')
+  canvas.removeChild(this.elem)
 }

@@ -1,5 +1,8 @@
 
 // Crear paredes
+let player
+let enemies
+let timerId
 
 const canvas = {
   width: 600,
@@ -15,62 +18,71 @@ const goal = {
 
 // Instancia
 
-const canvasElement = document.getElementById('canvas')
-
-const playerElement = document.getElementById('player')
-
 const STAGES = {
   stage1: {
+    player: {
+      top: 300,
+      left: 50
+    },
     enemies: [
       {
-        top: 100,
-        left: 100,
+        top: 150,
+        left: 150,
         id: 'enemy1',
         distance: 1,
-        path: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        path: [{ direction: 4, times: 150 }, { direction: 2, times: 150 }]
       },
       {
-        top: 100,
-        left: 300,
+
+        top: 120,
+        left: 250,
         id: 'enemy2',
         distance: 1,
-        path: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        path: [{ direction: 3, times: 100 }, { direction: 1, times: 100 }]
       },
       {
-        top: 100,
-        left: 400,
+        top: 300,
+        left: 500,
         id: 'enemy3',
-        distance: 1,
-        path: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        distance: 3,
+        path: [{ direction: 4, times: 80 }, { direction: 2, times: 80 }]
       }
     ]
   },
   stage2: {
+    player: {
+      top: 100,
+      left: 350
+    },
     enemies: [
       {
-        top: 300,
-        left: 300,
+        top: 150,
+        left: 150,
         id: 'enemy1',
+        distance: 1,
+        path: [{ direction: 4, times: 150 }, { direction: 2, times: 150 }]
+      },
+      {
+
+        top: 120,
+        left: 250,
+        id: 'enemy2',
+        distance: 1,
+        path: [{ direction: 3, times: 100 }, { direction: 1, times: 100 }]
+      },
+      {
+        top: 300,
+        left: 500,
+        id: 'enemy3',
         distance: 3,
-        path: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        path: [{ direction: 4, times: 80 }, { direction: 2, times: 80 }]
       }
     ]
   }
 }
 
 let level = 1
-let currentStage = STAGES[`stage${level}`]
-
-// Crear Fase
-
-const mario = new Player(10, 10, playerElement)
-const enemies = []
-
-for (let i = 0; i < currentStage.enemies.length; i++) {
-  enemies.push(new Enemy(currentStage.enemies[i].top, currentStage.enemies[i].left, currentStage.enemies[i].id, currentStage.enemies[i].path, currentStage.enemies[i].distance))
-
-  enemies[i].create()
-}
+startGame(level)
 
 // COLISIONES
 function colision (targetObj, collidedObj) {
@@ -105,40 +117,92 @@ function collisionEnemies (targetObj, enemies) {
   return false
 }
 
-// MOVIMIENTO
-setInterval(function () {
-  if (mario.direction !== 0) {
-    const marioNextPos = mario.getNextPosition()
+function animate () {
+  timerId = setInterval(function () {
+    if (player.direction !== 0) {
+      const playerNextPos = player.getNextPosition()
 
-    if (collisionEnemies(marioNextPos, enemies) === true) {
-      console.log('enemigo')
-    } else if (collisionCanvas(marioNextPos) === true) {
-      console.log('canvas')
-    } else if (colision(marioNextPos, goal) === true) {
-      console.log('goal')
-    } else {
-      mario.move()
-    }
-  }
-  for (let i = 0; i < enemies.length; i++) {
-    if (enemies[i].getDirection !== 0) {
-      let enemyNextPos = enemies[i].getNextPosition()
-      if (colision(enemyNextPos, mario)) {
-        console.log('enemigo2')
+      if (collisionEnemies(playerNextPos, enemies) === true) {
+        console.log('enemigo')
+        gameOver()
+      } else if (collisionCanvas(playerNextPos) === true) {
+        console.log('canvas')
+      } else if (colision(playerNextPos, goal) === true) {
+        console.log('goal')
+        winLevel()
       } else {
-        enemies[i].move()
+        player.move()
       }
     }
-  }
-}, 20)
-
-function startGame (level) {
-  // createEnemies(level)
-  // start animation loop <-- 11
+    for (let i = 0; i < enemies.length; i++) {
+      if (enemies[i].getDirection !== 0) {
+        const enemyNextPos = enemies[i].getNextPosition()
+        if (colision(enemyNextPos, player)) {
+          console.log('enemigo2')
+          gameOver()
+        } else {
+          enemies[i].move()
+        }
+      }
+    }
+  }, 20)
 }
 
-// startGame(1)
-// Teclas
+function startGame (level) {
+  const gameOverMsg = document.getElementById('gameOver')
+  gameOverMsg.style.display = 'none'
+  const nextLevelMsg = document.getElementById('nextLevel')
+  nextLevelMsg.style.display = 'none'
+  const currentStage = STAGES[`stage${level}`]
+  player = new Player(currentStage.player.top, currentStage.player.left, document.getElementById('player'))
+  player.setInitialPosition()
+
+  enemies = []
+  for (let i = 0; i < currentStage.enemies.length; i++) {
+    enemies.push(new Enemy(currentStage.enemies[i].top, currentStage.enemies[i].left, currentStage.enemies[i].id, currentStage.enemies[i].path, currentStage.enemies[i].distance))
+    enemies[i].create()
+  }
+  animate()
+}
+function gameOver () {
+  clearInterval(timerId)
+  const gameOverMsg = document.getElementById('gameOver')
+  for (let i = 0; i < enemies.length; i++) {
+    enemies[i].destroyEnemy()
+  }
+  gameOverMsg.style.display = 'block'
+}
+
+function retry () {
+  level = 1
+  startGame(level)
+}
+
+function winLevel () {
+  clearInterval(timerId)
+  const winLevalMsg = document.getElementById('nextLevel')
+  for (let i = 0; i < enemies.length; i++) {
+    enemies[i].destroyEnemy()
+  }
+  winLevalMsg.style.display = 'block'
+}
+
+function nextLevel () {
+  // level++
+  startGame(level)
+}
+
+// Player movements
 window.addEventListener('keydown', function (e) {
-  mario.setDirection(e.code)
+  player.setDirection(e.code)
 })
+
+// Retry
+const retryButton = document.getElementById('retry')
+console.log(retryButton)
+retryButton.onclick = retry
+
+// Next Level
+const nextLevelButton = document.getElementById('nextLevel')
+console.log(nextLevelButton)
+nextLevelButton.onclick = nextLevel
