@@ -38,6 +38,11 @@ body {
   position: absolute;
 }
 
+.obstacle {
+  background-color: gray;
+  position: absolute;
+}
+
 #goal {
   background-color: green;
   width: 20px;
@@ -46,6 +51,7 @@ body {
   left: 590px;
   position: absolute;
 }
+
 .gameOver{
   display: block;
   width: 500px;
