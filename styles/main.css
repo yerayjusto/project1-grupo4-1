@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-image: url(https://images.unsplash.com/photo-1533237264985-ee62f6d342bb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);
+  background-image: url(../assets/graphics/bg.jpg);
   background-size: cover;
 }
 
@@ -14,10 +14,10 @@ body {
 #canvas {
   width: 600px;
   height: 400px;
-  background-image: linear-gradient(0, rgba(192, 192, 192, 0.34) 0%, rgba(192, 192, 192, 0.34) 25%,rgba(130, 130, 130, 0.34) 25%, rgba(130, 130, 130, 0.34) 50%,rgba(151, 151, 151, 0.34) 50%, rgba(151, 151, 151, 0.34) 75%,rgba(171, 171, 171, 0.34) 75%, rgba(171, 171, 171, 0.34) 100%),linear-gradient(90deg, rgb(231, 231, 231) 0%, rgb(231, 231, 231) 20%,rgb(253, 253, 253) 20%, rgb(253, 253, 253) 40%,rgb(224, 224, 224) 40%, rgb(224, 224, 224) 60%,rgb(246, 246, 246) 60%, rgb(246, 246, 246) 80%,rgb(239, 239, 239) 80%, rgb(239, 239, 239) 100%);
+  background-image: url(../assets/graphics/board.jpg);
   /*
   background-image: url(https://images.unsplash.com/photo-1458682625221-3a45f8a844c7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80); */
-  border-radius: 15px;
+  border-radius: 0px;
   background-size: cover;
   }
 
@@ -39,17 +39,19 @@ body {
 }
 
 .obstacle {
-  background-color: gray;
+  background-image:url(../assets/graphics/bg_obstacle.jpg);
   position: absolute;
 }
 
 #goal {
-  background-color: green;
-  width: 20px;
+  background-image: url(../assets/graphics/door.gif);
+  width: 60px;
   height: 60px;
   top: 300px;
-  left: 590px;
+  left: 540px;
   position: absolute;
+  background-size: cover;
+  
 }
 
 .gameOver{
@@ -153,5 +155,6 @@ h1 {
 	background:linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
 	background-color:#72b352;
 }
+
 
 

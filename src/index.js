@@ -3,7 +3,6 @@
 let player
 let enemies
 let timerId
-let goal = {}
 let obstacles
 let currentStage
 
@@ -45,9 +44,9 @@ const STAGES = {
       }
     ],
     goal: {
-      top: 300,
-      left: 0,
-      width: 20,
+      top: 250,
+      left: 540,
+      width: 60,
       height: 60
     },
     obstacles: [
@@ -55,14 +54,14 @@ const STAGES = {
         top: 0,
         left: 0,
         width: 600,
-        height: 100,
+        height: 120,
         id: 'obstacle1'
       },
       {
-        top: 100,
-        left: 550,
-        width: 50,
-        height: 50,
+        top: 120,
+        left: 540,
+        width: 60,
+        height: 60,
         id: 'obstacle2'
       }
     ]
@@ -200,7 +199,7 @@ function startGame (level) {
   nextLevelMsg.style.display = 'none'
   const overlay = document.getElementById('overlay')
   overlay.style.display = 'none'
-  const currentStage = STAGES[`stage${level}`]
+  currentStage = STAGES[`stage${level}`]
   player = new Player(currentStage.player.top, currentStage.player.left, document.getElementById('player'))
   player.setInitialPosition()
 
@@ -210,10 +209,9 @@ function startGame (level) {
     enemies[i].create()
   }
 
-  goal.top = currentStage.goal.top
-  goal.left = currentStage.goal.left
-  document.getElementById('goal').style.top = goal.top
-  document.getElementById('goal').style.left = goal.left
+  document.getElementById('goal').style.top = currentStage.goal.top
+  document.getElementById('goal').style.left = currentStage.goal.left
+  console.log(currentStage.goal.top, currentStage.goal.left, 'hh')
 
   obstacles = []
   for (let i = 0; i < currentStage.obstacles.length; i++) {
