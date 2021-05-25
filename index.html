@@ -9,34 +9,45 @@
   <script src="src/Player.js" defer></script>
   <script src="src/Enemy.js" defer></script>
   <script src="src/index.js" defer></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
 </head>
 <body>
-  <div class="container">
 
-    <div>
-      <div id="gameOver" class="gameOver">
-        <h1>Game Over</h1>
-        <button id="retry" >
-
-        </button>
-      </div>
+  <div class="overlay" id="overlay">
+  </div>
+  
+  <div class="center-container">
+    <div id="gameOver" class="gameOver vertical-center">
+      <h1>Game Over</h1><br><br><br>
+      <button id="retry" class="myButton vertical-center">
+          <span> Try again </span>
+      </button>
     </div>
-
-    <div>
-      <div id="nextLevel" class="nextLevel">
-        <h1></h1>
-        <button id="retry" >
-
-        </button>
-      </div>
+  </div>
+  
+  <div class="center-container">
+    <div id="nextLevel" class="nextLevel vertical-center">
+      <h1>You won!</h1>
+      <button id="retry" class="myButton2 vertical-center">
+        <span> Play again </span>
+      </button>
     </div>
+  </div> 
+  
+    
 
-    <div id="canvas">
+
+
+
+
+  <div class=" center-container">
+
+    <div id="canvas" class="vertical-center">
       
       <div id="player"></div>
       <div id="goal"></div>
-
 
     </div>
   </div>

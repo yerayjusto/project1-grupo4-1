@@ -153,6 +153,8 @@ function startGame (level) {
   gameOverMsg.style.display = 'none'
   const nextLevelMsg = document.getElementById('nextLevel')
   nextLevelMsg.style.display = 'none'
+  const overlay = document.getElementById('overlay')
+  overlay.style.display = 'none'
   const currentStage = STAGES[`stage${level}`]
   player = new Player(currentStage.player.top, currentStage.player.left, document.getElementById('player'))
   player.setInitialPosition()
@@ -167,10 +169,12 @@ function startGame (level) {
 function gameOver () {
   clearInterval(timerId)
   const gameOverMsg = document.getElementById('gameOver')
+  const overlay = document.getElementById('overlay')
   for (let i = 0; i < enemies.length; i++) {
     enemies[i].destroyEnemy()
   }
   gameOverMsg.style.display = 'block'
+  overlay.style.display = 'block'
 }
 
 function retry () {
@@ -181,10 +185,12 @@ function retry () {
 function winLevel () {
   clearInterval(timerId)
   const winLevalMsg = document.getElementById('nextLevel')
+  const overlay = document.getElementById('overlay')
   for (let i = 0; i < enemies.length; i++) {
     enemies[i].destroyEnemy()
   }
   winLevalMsg.style.display = 'block'
+  overlay.style.display = 'block'
 }
 
 function nextLevel () {
