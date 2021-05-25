@@ -3,17 +3,13 @@
 let player
 let enemies
 let timerId
+let goal = {}
+let obstacles
+let currentStage
 
 const canvas = {
   width: 600,
   height: 400
-}
-
-const goal = {
-  top: 300,
-  left: 590,
-  width: 20,
-  height: 60
 }
 
 // Instancia
@@ -47,8 +43,31 @@ const STAGES = {
         distance: 3,
         path: [{ direction: 4, times: 80 }, { direction: 2, times: 80 }]
       }
+    ],
+    goal: {
+      top: 300,
+      left: 0,
+      width: 20,
+      height: 60
+    },
+    obstacles: [
+      {
+        top: 0,
+        left: 0,
+        width: 600,
+        height: 100,
+        id: 'obstacle1'
+      },
+      {
+        top: 100,
+        left: 550,
+        width: 50,
+        height: 50,
+        id: 'obstacle2'
+      }
     ]
   },
+
   stage2: {
     player: {
       top: 100,
@@ -76,6 +95,21 @@ const STAGES = {
         id: 'enemy3',
         distance: 3,
         path: [{ direction: 4, times: 80 }, { direction: 2, times: 80 }]
+      }
+    ],
+    goal: {
+      top: 300,
+      left: 590,
+      width: 20,
+      height: 60
+    },
+    obstacles: [
+      {
+        top: 0,
+        left: 0,
+        width: 600,
+        height: 100,
+        id: 'obstacle1'
       }
     ]
   }
@@ -117,6 +151,15 @@ function collisionEnemies (targetObj, enemies) {
   return false
 }
 
+function collisionObstacles (targetObj, obstacles) {
+  for (let i = 0; i < obstacles.length; i++) {
+    if (colision(targetObj, obstacles[i]) === true) {
+      return true
+    }
+  }
+  return false
+}
+
 function animate () {
   timerId = setInterval(function () {
     if (player.direction !== 0) {
@@ -127,9 +170,11 @@ function animate () {
         gameOver()
       } else if (collisionCanvas(playerNextPos) === true) {
         console.log('canvas')
-      } else if (colision(playerNextPos, goal) === true) {
+      } else if (colision(playerNextPos, currentStage.goal) === true) {
         console.log('goal')
         winLevel()
+      } else if (collisionObstacles(playerNextPos, obstacles) === true) {
+        console.log('obstacle')
       } else {
         player.move()
       }
@@ -153,7 +198,7 @@ function startGame (level) {
   gameOverMsg.style.display = 'none'
   const nextLevelMsg = document.getElementById('nextLevel')
   nextLevelMsg.style.display = 'none'
-  const currentStage = STAGES[`stage${level}`]
+  currentStage = STAGES[`stage${level}`]
   player = new Player(currentStage.player.top, currentStage.player.left, document.getElementById('player'))
   player.setInitialPosition()
 
@@ -162,6 +207,19 @@ function startGame (level) {
     enemies.push(new Enemy(currentStage.enemies[i].top, currentStage.enemies[i].left, currentStage.enemies[i].id, currentStage.enemies[i].path, currentStage.enemies[i].distance))
     enemies[i].create()
   }
+
+  goal.top = currentStage.goal.top
+  goal.left = currentStage.goal.left
+  document.getElementById('goal').style.top = goal.top
+  document.getElementById('goal').style.left = goal.left
+
+  obstacles = []
+  for (let i = 0; i < currentStage.obstacles.length; i++) {
+    obstacles.push(new Obstacle(currentStage.obstacles[i].top, currentStage.obstacles[i].left, currentStage.obstacles[i].width, currentStage.obstacles[i].height, currentStage.obstacles[i].id))
+    obstacles[i].create()
+  }
+
+
   animate()
 }
 function gameOver () {
@@ -169,6 +227,9 @@ function gameOver () {
   const gameOverMsg = document.getElementById('gameOver')
   for (let i = 0; i < enemies.length; i++) {
     enemies[i].destroyEnemy()
+  }
+  for (let i = 0; i < obstacles.length; i++) {
+    obstacles[i].destroy()
   }
   gameOverMsg.style.display = 'block'
 }
@@ -184,11 +245,14 @@ function winLevel () {
   for (let i = 0; i < enemies.length; i++) {
     enemies[i].destroyEnemy()
   }
+  for (let i = 0; i < obstacles.length; i++) {
+    obstacles[i].destroy()
+  }
   winLevalMsg.style.display = 'block'
 }
 
 function nextLevel () {
-  // level++
+  //level++
   startGame(level)
 }
 
