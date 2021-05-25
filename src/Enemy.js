@@ -1,12 +1,27 @@
-function Enemy (top, left, id, path) {
+function Enemy (top, left, id, path, distance) {
+  self = this
   this.width = 40
   this.height = 60
   this.top = top
   this.left = left
-  this.elem = id
-  this.distance = 1
+  this.id = id
+  this.elem = ''
+  this.distance = distance
   this.count = 0
   this.path = path
+  this.html = ''
+
+  this.create = function () {
+    this.elem = document.createElement('div')
+    this.elem.setAttribute('id', this.id)
+    this.elem.classList.add('enemy')
+    this.elem.style.top = this.top + 'px'
+    this.elem.style.left = this.left + 'px'
+    console.log(this.top, this.left)
+    var canvas = document.getElementById('canvas')
+    canvas.appendChild(this.elem)
+    this.elem = document.getElementById(this.id)
+  }
 }
 
 Enemy.prototype.move = function () {
@@ -30,7 +45,6 @@ Enemy.prototype.move = function () {
   } else {
     this.count++
   }
-
   this.elem.style.top = this.top + 'px'
   this.elem.style.left = this.left + 'px'
 }

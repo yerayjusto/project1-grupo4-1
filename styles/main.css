@@ -23,12 +23,10 @@
   position: absolute;
 }
 
-#enemy {
+.enemy {
   background-color: red;
   width: 40px;
   height: 60px;
-  top: 100px;
-  left: 100px;
   position: absolute;
 }
 
