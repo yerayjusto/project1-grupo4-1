@@ -21,12 +21,13 @@ body {
 
 
 #player {
-  background-color: blue;
-  width: 40px;
-  height: 60px;
+  width: 24px;
+  height: 43px;
   top: 10px;
   left: 10px;
   position: absolute;
+  background-image: url(/assets/graphics/spritexb-2363.png);
+  background-position: -4px -3px;
 }
 
 .enemy {
