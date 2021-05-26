@@ -5,6 +5,36 @@ let enemies
 let timerId
 let obstacles
 let currentStage
+let countDownDate = new Date('Jul 25, 2021 16:37:52').getTime()
+
+// Run myfunc every second
+var myfunc = setInterval(function () {
+  let now = new Date().getTime()
+  var timeleft = countDownDate - now
+
+  // Calculating the days, hours, minutes and seconds left
+  var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60))
+  var seconds = Math.floor((timeleft % (1000 * 60)) / 1000)
+
+  // Result is output to the specific element
+  document.getElementById('timer') = minutes + 'm ' + seconds + 's'
+
+  // Display the message when countdown is over
+  if (timeleft < 0) {
+    clearInterval(myfunc)
+    document.getElementById('mins').innerHTML = ''
+    document.getElementById('secs').innerHTML = ''
+    gameOver()
+  }
+}, 1000)
+/*timer = 60
+let timeGameId = setInterval(function () {
+  for (let i = 0; i < array.length; i++) {
+    
+    
+  }
+  timer--
+}, 1000);*/
 
 const canvas = {
   width: 600,
@@ -219,7 +249,6 @@ function startGame (level) {
     obstacles[i].create()
   }
 
-
   animate()
 }
 function gameOver () {
@@ -256,7 +285,7 @@ function winLevel () {
 }
 
 function nextLevel () {
-  //level++
+  // level++
   startGame(level)
 }
 
