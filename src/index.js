@@ -7,8 +7,8 @@ let obstacles
 let currentStage
 let countDownDate = new Date('Jul 25, 2021 16:37:52').getTime()
 
-// Run myfunc every second
-var myfunc = setInterval(function () {
+// Run timer every second
+var timer = setInterval(function () {
   let now = new Date().getTime()
   var timeleft = countDownDate - now
 
