@@ -6,6 +6,8 @@ let timerId
 let obstacles
 let currentStage
 let level = 1
+let bullet
+bullet = new Bullet(currentStage.player.top, currentStage.player.left, document.getElementById('bullet'))
 
 const canvas = {
   width: 640,
@@ -34,6 +36,17 @@ const STAGES = {
       width: 60,
       height: 60
     },
+    bullet: [
+      {
+        top: 150,
+        left: 150,
+        id: 'bullet',
+        distance: 3,
+        width: 20,
+        height: 20,
+        path: [{ direction: 0, times: 1000 }]
+      }
+    ],
     obstacles: []
   },
   stage2: {
@@ -282,6 +295,7 @@ function nextLevel () {
 // PLAYER MOVEMENTS
 window.addEventListener('keydown', function (e) {
   player.setDirection(e.code)
+  bullet.setDirection(e.code)
 })
 
 // RETRY GAME

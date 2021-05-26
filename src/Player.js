@@ -19,16 +19,22 @@ Player.prototype.setDirection = function (value) {
   switch (value) {
     case 'ArrowUp':
       this.direction = 1
+      currentStage.bullet.direction = 1
       break
     case 'ArrowRight':
       this.direction = 2
+      currentStage.bullet.direction = 2
       break
     case 'ArrowDown':
       this.direction = 3
+      currentStage.bullet.direction = 3
       break
     case 'ArrowLeft':
       this.direction = 4
+      currentStage.bullet.direction = 4
       break
+    case 'Space':
+      
   }
 }
 
