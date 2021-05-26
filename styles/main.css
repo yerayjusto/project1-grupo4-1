@@ -1,7 +1,17 @@
 body {
   margin: 0;
-  background-image: url(../assets/graphics/bg.jpg);
+  /* background-image: url(../assets/graphics/bg.jpg); */
   background-size: cover;
+}
+
+.intro {
+  background-color: #3c10da;
+  width: 640px;
+  height: 480px;
+  margin: auto;
+  position: relative;
+  z-index: 4;
+  display: block;
 }
 
 .container {
@@ -86,35 +96,49 @@ body {
 
 .gameOver{
   display: block;
-  width: 500px;
+  width: 440px;
   height: 300px;
   margin: auto;
   position: relative;
-  border-radius: 15px;
   background-color: deeppink;
-  box-shadow: 5px 10px #f8299352;
   z-index: 2;
+  border-radius: 15px;
+  box-shadow: 5px 10px #f8299352;
 }
 
 .nextLevel{
   display: block;
-  width: 500px;
+  width: 440px;
   height: 300px;
   margin: auto;
   position: relative;
-  border-radius: 15px;
+  z-index: 2;
   background-color: #1491ff;
   box-shadow: 5px 10px #29bff852;
+  border-radius: 15px;
+}
+
+.endGame{
+  display: block;
+  width: 440px;
+  height: 300px;
+  margin: auto;
+  position: relative;
+  background-color: #14ff9d;
   z-index: 2;
+  box-shadow: 5px 10px #29f89152;
+  border-radius: 15px;
 }
 
 .overlay {
-  position: fixed;
-  background-color: #27155dc9;
-  width: 100%;
-  height: 100%;
+  
+  background-color: #27155dd7;
+  width: 640px;
+  height: 480px;
+  margin: auto;
+  position: relative;
   z-index: 1;
-  display: none;
+  display: block;
 }
 
 .container-modal {
@@ -122,8 +146,6 @@ body {
   position: relative;
   border: 3px solid green;
 }
-
-
 
 .vertical-center {
   margin: 0;
