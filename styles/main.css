@@ -93,7 +93,14 @@ body {
   text-align:center;
   font-size: 18px;
 }
-
+.life{
+  background-image: url(../assets/graphics/life.png);
+  width: 20px;
+  height: 20px;
+  position:absolute;
+  display: block;
+  background-size: cover;
+}
 .gameOver{
   display: block;
   width: 500px;

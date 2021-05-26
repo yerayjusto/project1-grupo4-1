@@ -1,5 +1,4 @@
 function Enemy (top, left, id, path, distance) {
-  self = this
   this.width = 40
   this.height = 60
   this.top = top
@@ -18,7 +17,6 @@ function Enemy (top, left, id, path, distance) {
     this.elem.classList.add('enemy')
     this.elem.style.top = this.top + 'px'
     this.elem.style.left = this.left + 'px'
-    console.log(this.top, this.left)
     const canvas = document.getElementById('canvas')
     canvas.appendChild(this.elem)
     this.elem = document.getElementById(this.id)

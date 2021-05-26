@@ -1,4 +1,4 @@
-function Obstacle(top, left, width, height, id, clase) {
+function Obstacle (top, left, width, height, id, clase) {
   this.top = top
   this.left = left
   this.width = width

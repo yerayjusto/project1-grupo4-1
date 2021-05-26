@@ -6,7 +6,7 @@ let timerId
 let obstacles
 let currentStage
 let countDown
-
+let totalLife = 3
 const canvas = {
   width: 640,
   height: 480
@@ -37,7 +37,7 @@ const STAGES = {
       height: 60
     },
     obstacles: [],
-    time: 10
+    time: 1000000
   },
 
   stage2: {
@@ -275,6 +275,25 @@ function startGame (level) {
   }
   animate()
   time()
+  life()
+}
+
+function life () {
+  const addLife = []
+  let left = 0
+  for (let i = 1; i <= totalLife; i++) {
+    addLife[i] = document.createElement('div')
+    addLife[i].setAttribute('class', 'life')
+    addLife[i].setAttribute('id', `life${i}`)
+    addLife[i].classList.add('life')
+    addLife[i].style.top = 0 + 'px'
+    addLife[i].style.left = left + 'px'
+    const canvas = document.getElementById('canvas')
+    canvas.appendChild(addLife[i])
+    addLife[i] = document.getElementsByClassName(`life${i}`)
+    console.log(addLife[i])
+    left += 20
+  }
 }
 
 function gameOver () {
@@ -290,9 +309,12 @@ function gameOver () {
   gameOverMsg.style.display = 'block'
   overlay.style.display = 'block'
 }
-
 function retry () {
   level = 1
+  const canvas = document.getElementById('canvas')
+  const lifeElement = document.getElementById(`life${totalLife}`)
+  canvas.removeChild(lifeElement)
+  totalLife--
   startGame(level)
 }
 
