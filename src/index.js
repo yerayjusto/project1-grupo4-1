@@ -44,7 +44,7 @@ const STAGES = {
       }
     ],
     goal: {
-      top: 250,
+      top: 300,
       left: 540,
       width: 60,
       height: 60
