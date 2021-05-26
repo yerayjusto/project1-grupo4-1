@@ -312,6 +312,7 @@ function nextLevel () {
 
 // Player movements
 window.addEventListener('keydown', function (e) {
+  console.log('move')
   player.setDirection(e.code)
 })
 
