@@ -21,7 +21,7 @@ var timer = setInterval(function () {
 
   // Display the message when countdown is over
   if (timeleft < 0) {
-    clearInterval(myfunc)
+    clearInterval(timer)
     document.getElementById('mins').innerHTML = ''
     document.getElementById('secs').innerHTML = ''
     gameOver()
