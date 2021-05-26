@@ -36,7 +36,7 @@ body {
   top: 10px;
   left: 10px;
   position: absolute;
-  background-image: url(/assets/graphics/spritexb-2363.png);
+  background-image: url(../assets/graphics/spritexb-2363.png);
   background-position: -4px -3px;
 }
 
