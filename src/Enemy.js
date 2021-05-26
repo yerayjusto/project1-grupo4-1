@@ -1,5 +1,5 @@
+// ENEMY OBJECT
 function Enemy (top, left, id, path, distance) {
-  self = this
   this.width = 40
   this.height = 60
   this.top = top
@@ -18,13 +18,13 @@ function Enemy (top, left, id, path, distance) {
     this.elem.classList.add('enemy')
     this.elem.style.top = this.top + 'px'
     this.elem.style.left = this.left + 'px'
-    console.log(this.top, this.left)
     const canvas = document.getElementById('canvas')
     canvas.appendChild(this.elem)
     this.elem = document.getElementById(this.id)
   }
 }
 
+// ENEMY MOVEMENTS
 Enemy.prototype.move = function () {
   switch (this.path[this.count].direction) {
     case 1:
@@ -61,10 +61,12 @@ Enemy.prototype.move = function () {
   this.elem.style.left = this.left + 'px'
 }
 
+// ENEMY DIRECTION
 Enemy.prototype.getDirection = function () {
   return this.path[this.count]
 }
 
+// ENEMY NEXT POSITION
 Enemy.prototype.getNextPosition = function () {
   const position = {
     top: this.top,
@@ -90,6 +92,7 @@ Enemy.prototype.getNextPosition = function () {
   return position
 }
 
+// DESTROY ENEMIES EACH LVL
 Enemy.prototype.destroyEnemy = function () {
   const canvas = document.getElementById('canvas')
   canvas.removeChild(this.elem)

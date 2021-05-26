@@ -1,4 +1,4 @@
-// Create player
+// PLAYER OBJECT
 function Player (top, left, id) {
   this.width = 40
   this.height = 60
@@ -14,6 +14,7 @@ function Player (top, left, id) {
   }
 }
 
+// PLAYER KEYS DIRECTION
 Player.prototype.setDirection = function (value) {
   switch (value) {
     case 'ArrowUp':
@@ -31,7 +32,7 @@ Player.prototype.setDirection = function (value) {
   }
 }
 
-// Player move
+// PLAYER MOVEMENTS
 Player.prototype.move = function () {
   switch (this.direction) {
     case 1:
@@ -53,6 +54,7 @@ Player.prototype.move = function () {
   this.direction = 0
 }
 
+// PLAYER NEXT POSITION
 Player.prototype.getNextPosition = function () {
   const position = {
     top: this.top,
@@ -78,6 +80,7 @@ Player.prototype.getNextPosition = function () {
   return position
 }
 
+// DESTRY PLAYER EACH LVL
 Player.prototype.destroyPlayer = function () {
   const canvas = document.getElementById('canvas')
   canvas.removeChild(this.elem)

@@ -1,20 +1,42 @@
 
-// Crear paredes
+// GLOBAL VARS & CANVAS LENGTH
 let player
 let enemies
 let timerId
 let obstacles
 let currentStage
+let level = 1
 
 const canvas = {
-  width: 600,
-  height: 400
+  width: 640,
+  height: 480
 }
 
-// Instancia
-
+// INSTANCES
 const STAGES = {
   stage1: {
+    player: {
+      top: 150,
+      left: 50
+    },
+    enemies: [
+      {
+        top: 320,
+        left: 260,
+        id: 'enemy1',
+        distance: 2,
+        path: [{ direction: 1, times: 150 }, { direction: 3, times: 150 }]
+      }
+    ],
+    goal: {
+      top: 200,
+      left: 595,
+      width: 60,
+      height: 60
+    },
+    obstacles: []
+  },
+  stage2: {
     player: {
       top: 300,
       left: 50
@@ -44,8 +66,8 @@ const STAGES = {
       }
     ],
     goal: {
-      top: 300,
-      left: 540,
+      top: 280,
+      left: 556,
       width: 60,
       height: 60
     },
@@ -67,58 +89,57 @@ const STAGES = {
     ]
   },
 
-  stage2: {
+  stage3: {
     player: {
       top: 100,
-      left: 350
+      left: 500
     },
     enemies: [
       {
         top: 150,
         left: 150,
         id: 'enemy1',
-        distance: 1,
-        path: [{ direction: 4, times: 150 }, { direction: 2, times: 150 }]
+        distance: 2,
+        path: [{ direction: 4, times: 60 }, { direction: 3, times: 30 }, { direction: 2, times: 60 }, { direction: 1, times: 30 }]
       },
       {
-
-        top: 120,
+        top: 40,
         left: 250,
         id: 'enemy2',
-        distance: 1,
-        path: [{ direction: 3, times: 100 }, { direction: 1, times: 100 }]
+        distance: 3,
+        path: [{ direction: 3, times: 55 }, { direction: 1, times: 55 }]
       },
       {
-        top: 300,
-        left: 500,
+        top: 320,
+        left: 370,
         id: 'enemy3',
-        distance: 3,
-        path: [{ direction: 4, times: 80 }, { direction: 2, times: 80 }]
+        distance: 2,
+        path: [{ direction: 4, times: 110 }, { direction: 2, times: 110 }]
       }
     ],
     goal: {
       top: 300,
-      left: 590,
+      left: 30,
       width: 20,
       height: 60
     },
     obstacles: [
       {
-        top: 0,
-        left: 0,
-        width: 600,
-        height: 100,
+        top: 100,
+        left: 300,
+        width: 120,
+        height: 120,
         id: 'obstacle1'
       }
     ]
   }
 }
 
-let level = 1
+// GAME BEGIN
 startGame(level)
 
-// COLISIONES
-function colision (targetObj, collidedObj) {
+// COLLISIONS
+function collision (targetObj, collidedObj) {
   if ((targetObj.left < collidedObj.left + collidedObj.width) &&
     (targetObj.top < collidedObj.top + collidedObj.height) &&
     (collidedObj.left < targetObj.left + targetObj.width) &&
@@ -143,7 +164,7 @@ function collisionCanvas (targetObj) {
 
 function collisionEnemies (targetObj, enemies) {
   for (let i = 0; i < enemies.length; i++) {
-    if (colision(targetObj, enemies[i]) === true) {
+    if (collision(targetObj, enemies[i]) === true) {
       return true
     }
   }
@@ -152,28 +173,25 @@ function collisionEnemies (targetObj, enemies) {
 
 function collisionObstacles (targetObj, obstacles) {
   for (let i = 0; i < obstacles.length; i++) {
-    if (colision(targetObj, obstacles[i]) === true) {
+    if (collision(targetObj, obstacles[i]) === true) {
       return true
     }
   }
   return false
 }
 
+// ANIMATE GAME
 function animate () {
   timerId = setInterval(function () {
     if (player.direction !== 0) {
       const playerNextPos = player.getNextPosition()
 
       if (collisionEnemies(playerNextPos, enemies) === true) {
-        console.log('enemigo')
         gameOver()
       } else if (collisionCanvas(playerNextPos) === true) {
-        console.log('canvas')
-      } else if (colision(playerNextPos, currentStage.goal) === true) {
-        console.log('goal')
+      } else if (collision(playerNextPos, currentStage.goal) === true) {
         winLevel()
       } else if (collisionObstacles(playerNextPos, obstacles) === true) {
-        console.log('obstacle')
       } else {
         player.move()
       }
@@ -181,8 +199,7 @@ function animate () {
     for (let i = 0; i < enemies.length; i++) {
       if (enemies[i].getDirection !== 0) {
         const enemyNextPos = enemies[i].getNextPosition()
-        if (colision(enemyNextPos, player)) {
-          console.log('enemigo2')
+        if (collision(enemyNextPos, player)) {
           gameOver()
         } else {
           enemies[i].move()
@@ -192,6 +209,7 @@ function animate () {
   }, 20)
 }
 
+// GAME START FUNCTION
 function startGame (level) {
   const gameOverMsg = document.getElementById('gameOver')
   gameOverMsg.style.display = 'none'
@@ -209,17 +227,18 @@ function startGame (level) {
     enemies[i].create()
   }
 
-  document.getElementById('goal').style.top = currentStage.goal.top
-  document.getElementById('goal').style.left = currentStage.goal.left
-  console.log(currentStage.goal.top, currentStage.goal.left, 'hh')
+  document.getElementById('goal').style.top = currentStage.goal.top + 'px'
+  document.getElementById('goal').style.left = currentStage.goal.left + 'px'
 
   obstacles = []
-  for (let i = 0; i < currentStage.obstacles.length; i++) {
-    obstacles.push(new Obstacle(currentStage.obstacles[i].top, currentStage.obstacles[i].left, currentStage.obstacles[i].width, currentStage.obstacles[i].height, currentStage.obstacles[i].id))
-    obstacles[i].create()
+  if (currentStage.obstacles === []) {
+    obstacles = []
+  } else {
+    for (let i = 0; i < currentStage.obstacles.length; i++) {
+      obstacles.push(new Obstacle(currentStage.obstacles[i].top, currentStage.obstacles[i].left, currentStage.obstacles[i].width, currentStage.obstacles[i].height, currentStage.obstacles[i].id))
+      obstacles[i].create()
+    }
   }
-
-
   animate()
 }
 function gameOver () {
@@ -237,13 +256,12 @@ function gameOver () {
 }
 
 function retry () {
-  level = 1
   startGame(level)
 }
 
 function winLevel () {
   clearInterval(timerId)
-  const winLevalMsg = document.getElementById('nextLevel')
+  const winLevelMsg = document.getElementById('nextLevel')
   const overlay = document.getElementById('overlay')
   for (let i = 0; i < enemies.length; i++) {
     enemies[i].destroyEnemy()
@@ -251,26 +269,25 @@ function winLevel () {
   for (let i = 0; i < obstacles.length; i++) {
     obstacles[i].destroy()
   }
-  winLevalMsg.style.display = 'block'
+  winLevelMsg.style.display = 'block'
   overlay.style.display = 'block'
 }
 
+// CHANGE NEXT LEVEL
 function nextLevel () {
-  //level++
+  level++
   startGame(level)
 }
 
-// Player movements
+// PLAYER MOVEMENTS
 window.addEventListener('keydown', function (e) {
   player.setDirection(e.code)
 })
 
-// Retry
+// RETRY GAME
 const retryButton = document.getElementById('retry')
-console.log(retryButton)
 retryButton.onclick = retry
 
-// Next Level
+// NEXT LEVEL WINDOW & BUTTON
 const nextLevelButton = document.getElementById('nextLevel')
-console.log(nextLevelButton)
 nextLevelButton.onclick = nextLevel
