@@ -7,14 +7,38 @@ let obstacles
 let currentStage
 
 const canvas = {
-  width: 600,
-  height: 400
+  width: 640,
+  height: 480
 }
 
 // Instancia
 
 const STAGES = {
+
   stage1: {
+    player: {
+      top: 150,
+      left: 50
+    },
+    enemies: [
+      {
+        top: 400,
+        left: 260,
+        id: 'enemy1',
+        distance: 3,
+        path: [{ direction: 1, times: 120 }, { direction: 3, times: 120 }]
+      }
+    ],
+    goal: {
+      top: 300,
+      left: 540,
+      width: 60,
+      height: 60
+    },
+    obstacles: []
+  },
+
+  stage2: {
     player: {
       top: 300,
       left: 50
@@ -44,8 +68,8 @@ const STAGES = {
       }
     ],
     goal: {
-      top: 300,
-      left: 540,
+      top: 280,
+      left: 556,
       width: 60,
       height: 60
     },
@@ -60,57 +84,73 @@ const STAGES = {
       },
       {
         top: 120,
-        left: 540,
-        width: 60,
-        height: 60,
+        left: 520,
+        width: 80,
+        height: 40,
         id: 'obstacle2',
         clase: 'obstacle02'
+      },
+      {
+        top: 400,
+        left: 0,
+        width: 640,
+        height: 80,
+        id: 'obstacle3',
+        clase: 'obstacle04'
       }
     ]
   },
 
-  stage2: {
+  stage3: {
     player: {
       top: 100,
-      left: 350
+      left: 500
     },
     enemies: [
       {
         top: 150,
         left: 150,
         id: 'enemy1',
-        distance: 1,
-        path: [{ direction: 4, times: 150 }, { direction: 2, times: 150 }]
+        distance: 2,
+        path: [{ direction: 4, times: 60 }, { direction: 3, times: 30 }, { direction: 2, times: 60 }, { direction: 1, times: 30 }]
       },
       {
-
-        top: 120,
+        top: 40,
         left: 250,
         id: 'enemy2',
-        distance: 1,
-        path: [{ direction: 3, times: 100 }, { direction: 1, times: 100 }]
+        distance: 3,
+        path: [{ direction: 3, times: 55 }, { direction: 1, times: 55 }]
       },
       {
-        top: 300,
-        left: 500,
+        top: 320,
+        left: 370,
         id: 'enemy3',
-        distance: 3,
-        path: [{ direction: 4, times: 80 }, { direction: 2, times: 80 }]
+        distance: 2,
+        path: [{ direction: 4, times: 110 }, { direction: 2, times: 110 }]
       }
     ],
     goal: {
       top: 300,
-      left: 590,
+      left: 30,
       width: 20,
       height: 60
     },
     obstacles: [
       {
-        top: 0,
+        top: 100,
+        left: 300,
+        width: 120,
+        height: 120,
+        id: 'obstacle1',
+        clase: 'obstacle05'
+      },
+      {
+        top: 400,
         left: 0,
-        width: 600,
-        height: 100,
-        id: 'obstacle1'
+        width: 640,
+        height: 80,
+        id: 'obstacle2',
+        clase: 'obstacle07'
       }
     ]
   }
@@ -211,11 +251,12 @@ function startGame (level) {
     enemies[i].create()
   }
 
-  document.getElementById('goal').style.top = currentStage.goal.top
-  document.getElementById('goal').style.left = currentStage.goal.left
+  document.getElementById('goal').style.top = currentStage.goal.top + 'px'
+  document.getElementById('goal').style.left = currentStage.goal.left + 'px'
   console.log(currentStage.goal.top, currentStage.goal.left, 'hh')
 
   obstacles = []
+
   for (let i = 0; i < currentStage.obstacles.length; i++) {
     obstacles.push(new Obstacle(
       currentStage.obstacles[i].top,
@@ -227,7 +268,7 @@ function startGame (level) {
     ))
     obstacles[i].create()
   }
-
+  
 
   animate()
 }
@@ -265,7 +306,7 @@ function winLevel () {
 }
 
 function nextLevel () {
-  //level++
+  level++
   startGame(level)
 }
 
