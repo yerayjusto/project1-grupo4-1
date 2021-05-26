@@ -55,14 +55,16 @@ const STAGES = {
         left: 0,
         width: 600,
         height: 120,
-        id: 'obstacle1'
+        id: 'obstacle1',
+        clase: 'obstacle01'
       },
       {
         top: 120,
         left: 540,
         width: 60,
         height: 60,
-        id: 'obstacle2'
+        id: 'obstacle2',
+        clase: 'obstacle02'
       }
     ]
   },
@@ -215,7 +217,14 @@ function startGame (level) {
 
   obstacles = []
   for (let i = 0; i < currentStage.obstacles.length; i++) {
-    obstacles.push(new Obstacle(currentStage.obstacles[i].top, currentStage.obstacles[i].left, currentStage.obstacles[i].width, currentStage.obstacles[i].height, currentStage.obstacles[i].id))
+    obstacles.push(new Obstacle(
+      currentStage.obstacles[i].top,
+      currentStage.obstacles[i].left,
+      currentStage.obstacles[i].width,
+      currentStage.obstacles[i].height,
+      currentStage.obstacles[i].id,
+      currentStage.obstacles[i].clase
+    ))
     obstacles[i].create()
   }
 

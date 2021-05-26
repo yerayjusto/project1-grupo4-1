@@ -14,9 +14,7 @@ body {
 #canvas {
   width: 600px;
   height: 400px;
-  background-image: url(../assets/graphics/board.jpg);
-  /*
-  background-image: url(https://images.unsplash.com/photo-1458682625221-3a45f8a844c7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80); */
+  background-color: black;
   border-radius: 0px;
   background-size: cover;
   }
@@ -39,8 +37,34 @@ body {
   background-size: cover;
 }
 
-.obstacle {
-  background-image:url(../assets/graphics/bg_obstacle.jpg);
+.obstacle01 {
+  background-image:url(../assets/graphics/obstacle01.png);
+  position: absolute;
+}
+
+.obstacle02 {
+  background-image:url(../assets/graphics/obstacle02.png);
+  position: absolute;
+}
+
+
+.obstacle03 {
+  background-image:url(../assets/graphics/obstacle03.png);
+  position: absolute;
+}
+
+.obstacle04 {
+  background-image:url(../assets/graphics/obstacle04.png);
+  position: absolute;
+}
+
+.obstacle05 {
+  background-image:url(../assets/graphics/obstacle05.png);
+  position: absolute;
+}
+
+.obstacle06 {
+  background-image:url(../assets/graphics/obstacle06.png);
   position: absolute;
 }
 
