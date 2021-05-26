@@ -1,6 +1,7 @@
 body {
   margin: 0;
-  /* background-image: url(../assets/graphics/bg.jpg); */
+  /* background-image: url(../assets/graphics/bg1.jpg);*/
+  background-color: black;
   background-size: cover;
 }
 
@@ -24,9 +25,10 @@ body {
 #canvas {
   width: 640px;
   height: 480px;
+  background-image: url(../assets/graphics/ground.png);
   background-color: black;
   border-radius: 0px;
-  background-size: cover;
+  /* background-size: cover; */
   }
 
 
