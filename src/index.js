@@ -268,8 +268,6 @@ function startGame (level) {
     ))
     obstacles[i].create()
   }
-  
-
   animate()
 }
 function gameOver () {
@@ -293,6 +291,8 @@ function retry () {
 
 function winLevel () {
   clearInterval(timerId)
+  // if (level === 3) 
+
   const winLevalMsg = document.getElementById('nextLevel')
   const overlay = document.getElementById('overlay')
   for (let i = 0; i < enemies.length; i++) {
@@ -307,6 +307,7 @@ function winLevel () {
 
 function nextLevel () {
   level++
+
   startGame(level)
 }
 
