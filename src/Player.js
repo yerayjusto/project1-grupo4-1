@@ -1,5 +1,5 @@
 // Create player
-function Player (top, left, id) {
+function Player(top, left, id) {
   this.width = 24
   this.height = 43
   this.top = top
@@ -7,6 +7,7 @@ function Player (top, left, id) {
   this.elem = id
   this.distance = 6
   this.direction = 0
+  this.lifes = 3
   this.widthOfSpriteSheet = 100
   this.widthOfEachSprite = 32
   this.spritetHeight = 3
@@ -72,7 +73,6 @@ Player.prototype.changeAnimation = function () {
     this.position = this.startedPositionSheetWidth
   }
 }
-
 
 Player.prototype.getNextPosition = function () {
   const position = {
