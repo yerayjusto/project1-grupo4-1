@@ -106,12 +106,13 @@ body {
 
 #goal {
   background-image: url(../assets/graphics/door.gif);
-  width: 60px;
+  width: 30px;
   height: 60px;
   top: 300px;
   left: 540px;
   position: absolute;
   background-size: cover;
+  background-position: -15px;
 }
 #timer {
   display: block;

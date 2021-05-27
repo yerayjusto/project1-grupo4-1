@@ -216,6 +216,7 @@ function retry () {
 
 // GAME WIN LEVEL
 function winLevel () {
+  clearInterval(clock)
   clearInterval(timerId)
   clearInterval(clock)
   document.getElementById('timer').innerText = ''
