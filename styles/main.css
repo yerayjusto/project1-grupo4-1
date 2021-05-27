@@ -44,7 +44,7 @@ body {
   top: 10px;
   left: 10px;
   position: absolute;
-  background-image: url(/assets/graphics/spritexb-8223.png);
+  background-image: url(../assets/graphics/spritexb-8223.png);
   background-position: -4px -3px;
 }
 
