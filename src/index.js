@@ -25,6 +25,7 @@ const STAGES = {
         top: 400,
         left: 260,
         id: 'enemy1',
+        cssClass: 'enemy01',
         distance: 3,
         path: [{ direction: 1, times: 120 }, { direction: 3, times: 120 }]
       }
@@ -48,6 +49,7 @@ const STAGES = {
         top: 150,
         left: 150,
         id: 'enemy1',
+        cssClass: 'enemy02',
         distance: 1,
         path: [{ direction: 4, times: 150 }, { direction: 2, times: 150 }]
       },
@@ -56,6 +58,7 @@ const STAGES = {
         top: 120,
         left: 250,
         id: 'enemy2',
+        cssClass: 'enemy01',
         distance: 1,
         path: [{ direction: 3, times: 100 }, { direction: 1, times: 100 }]
       },
@@ -63,6 +66,7 @@ const STAGES = {
         top: 300,
         left: 500,
         id: 'enemy3',
+        cssClass: 'enemy03',
         distance: 3,
         path: [{ direction: 4, times: 80 }, { direction: 2, times: 80 }]
       }
@@ -111,6 +115,7 @@ const STAGES = {
         top: 150,
         left: 150,
         id: 'enemy1',
+        cssClass: 'enemy01',
         distance: 2,
         path: [{ direction: 4, times: 60 }, { direction: 3, times: 30 }, { direction: 2, times: 60 }, { direction: 1, times: 30 }]
       },
@@ -118,6 +123,7 @@ const STAGES = {
         top: 40,
         left: 250,
         id: 'enemy2',
+        cssClass: 'enemy02',
         distance: 3,
         path: [{ direction: 3, times: 55 }, { direction: 1, times: 55 }]
       },
@@ -125,6 +131,7 @@ const STAGES = {
         top: 320,
         left: 370,
         id: 'enemy3',
+        cssClass: 'enemy03',
         distance: 2,
         path: [{ direction: 4, times: 110 }, { direction: 2, times: 110 }]
       }
@@ -255,7 +262,7 @@ function startGame (level) {
 
   enemies = []
   for (let i = 0; i < currentStage.enemies.length; i++) {
-    enemies.push(new Enemy(currentStage.enemies[i].top, currentStage.enemies[i].left, currentStage.enemies[i].id, currentStage.enemies[i].path, currentStage.enemies[i].distance))
+    enemies.push(new Enemy(currentStage.enemies[i].top, currentStage.enemies[i].left, currentStage.enemies[i].id, currentStage.enemies[i].cssClass, currentStage.enemies[i].path, currentStage.enemies[i].distance))
     enemies[i].create()
   }
 

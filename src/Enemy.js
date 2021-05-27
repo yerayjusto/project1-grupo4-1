@@ -1,10 +1,11 @@
-function Enemy (top, left, id, path, distance) {
+function Enemy (top, left, id, cssClass, path, distance) {
   self = this
   this.width = 40
   this.height = 60
   this.top = top
   this.left = left
   this.id = id
+  this.cssClass = cssClass
   this.elem = ''
   this.distance = distance
   this.count = 0
@@ -16,6 +17,7 @@ function Enemy (top, left, id, path, distance) {
     this.elem = document.createElement('div')
     this.elem.setAttribute('id', this.id)
     this.elem.classList.add('enemy')
+    this.elem.classList.add(this.cssClass)
     this.elem.style.top = this.top + 'px'
     this.elem.style.left = this.left + 'px'
     console.log(this.top, this.left)
