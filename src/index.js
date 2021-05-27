@@ -1,4 +1,4 @@
-// Crear paredes
+// CREATE PLAYER
 const player = new Player(0, 0, document.getElementById('player'))
 player.setInitialPosition()
 let enemies
@@ -21,8 +21,8 @@ const canvas = {
 let level = 1
 const finalLevel = 3
 
-// COLISIONES
-function colision (targetObj, collidedObj) {
+// COLLISIONS
+function collision (targetObj, collidedObj) {
   if ((targetObj.left < collidedObj.left + collidedObj.width) &&
     (targetObj.top < collidedObj.top + collidedObj.height) &&
     (collidedObj.left < targetObj.left + targetObj.width) &&
@@ -47,7 +47,7 @@ function collisionCanvas (targetObj) {
 
 function collisionEnemies (targetObj, enemies) {
   for (let i = 0; i < enemies.length; i++) {
-    if (colision(targetObj, enemies[i]) === true) {
+    if (collision(targetObj, enemies[i]) === true) {
       return true
     }
   }
@@ -56,13 +56,14 @@ function collisionEnemies (targetObj, enemies) {
 
 function collisionObstacles (targetObj, obstacles) {
   for (let i = 0; i < obstacles.length; i++) {
-    if (colision(targetObj, obstacles[i]) === true) {
+    if (collision(targetObj, obstacles[i]) === true) {
       return true
     }
   }
   return false
 }
 
+// ANIMATE GAME FUNCTION
 function animate () {
   timerId = setInterval(function () {
     if (player.direction !== 0) {
@@ -102,6 +103,7 @@ function animate () {
   }, 20)
 }
 
+// STAR GAME FUNCTION
 function startGame (level) {
   const intro = document.getElementById('intro')
   intro.style.display = 'none'
@@ -148,9 +150,15 @@ function startGame (level) {
   setTime()
 }
 
+// SET LIFE PLAYER
 function setLife () {
+  for (let i = 1; i <= player.lifes; i++) {
+    const container = document.getElementById('life-container')
+    const lifeElement = document.getElementById(`life${i}`)
+    if (lifeElement) container.removeChild(lifeElement)
+  }
   let left = 0
-  console.log(player)
+  player.lifes = 3
   for (let i = 1; i <= player.lifes; i++) {
     const life = document.createElement('div')
     life.setAttribute('class', 'life')
@@ -162,6 +170,7 @@ function setLife () {
   }
 }
 
+// GAME OVER FUNCTION
 function gameOver () {
   clearInterval(clock)
   clearInterval(timerId)
@@ -178,9 +187,11 @@ function gameOver () {
   overlay.style.display = 'block'
 }
 
+// RETRY LEVELS CONDITIONS
 function retry () {
   if (player.lifes === 0) {
     gameOver()
+    document.getElementById('timer').innerText = ''
     player.lifes = 3
     level = 1
     const intro = document.getElementById('intro')
@@ -203,9 +214,11 @@ function retry () {
   }
 }
 
-// Win level
+// GAME WIN LEVEL
 function winLevel () {
   clearInterval(timerId)
+  clearInterval(clock)
+  document.getElementById('timer').innerText = ''
   const winLevalMsg = document.getElementById('nextLevel')
   const endGameLMsg = document.getElementById('endGame')
   const overlay = document.getElementById('overlay')
@@ -220,16 +233,18 @@ function winLevel () {
   overlay.style.display = 'block'
   if (level === finalLevel) {
     endGameLMsg.style.display = 'block'
-    level = 1
   } else {
     winLevalMsg.style.display = 'block'
   }
 }
 
+// CLOCK TIME COUNTDOWN FUNCTION
 function setTime () {
   clock = setInterval(function () {
     countDown--
-    if (countDown === 0) {
+    if (countDown === 0 && player.lifes === 0) {
+      retry()
+    } else if (countDown === 0) {
       clearInterval(timerId)
       clearInterval(clock)
       const container = document.getElementById('life-container')
@@ -255,27 +270,24 @@ function nextLevel () {
   startGame(level)
 }
 
-// startGame(level)
+// STARTGAME BUTTON CLICK
 const startButton = document.getElementById('start')
 startButton.addEventListener('click', function () {
   setLife()
   startGame(level)
 })
 
-// Player movements
+// PLAYER MOVEMENTS KEY
 window.addEventListener('keydown', function (e) {
-  console.log('move')
   player.setDirection(e.code)
 })
 
-// Retry
+// RETRY BUTTON CLICK
 const retryButton = document.getElementById('retry')
-console.log(retryButton)
 retryButton.onclick = retry
 
-// Next Level
+// NEXT LEVEL CLICK
 const nextLevelButton = document.getElementById('nextLevel')
-console.log(nextLevelButton)
 nextLevelButton.onclick = nextLevel
 
 // Next Level Keydown
@@ -292,8 +304,8 @@ window.addEventListener('keydown', function (e) {
 
 // Listening to reset game
 document.getElementById('playAgain').addEventListener('click', function (e) {
-  player.lifes = 3
   setLife()
+  level = 1
   startGame(level)
 })
 
