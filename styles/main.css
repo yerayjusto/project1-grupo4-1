@@ -9,7 +9,7 @@ body {
 }
 
 .intro {
-  background-color: #3c10da;
+  background-image: url(../assets/graphics/intro_bg.jpg);
   width: 640px;
   height: 480px;
   margin: auto;
@@ -17,6 +17,7 @@ body {
   z-index: 4;
   display: block;
 }
+
 
 .container {
   height: 100%;
@@ -32,7 +33,7 @@ body {
   background-color: black;
   border-radius: 0px;
   /* background-size: cover; */
-  }
+}
 
 
 #player {
@@ -121,7 +122,7 @@ body {
   background-color: deeppink;
   z-index: 2;
   border-radius: 15px;
-  box-shadow: 5px 10px #f8299352;
+  /* box-shadow: 5px 10px #f8299352;*/
 }
 
 .nextLevel{
@@ -132,7 +133,7 @@ body {
   position: relative;
   z-index: 2;
   background-color: #1491ff;
-  box-shadow: 5px 10px #29bff852;
+  /* box-shadow: 5px 10px #29bff852; */
   border-radius: 15px;
 }
 
@@ -144,7 +145,7 @@ body {
   position: relative;
   background-color: #14ff9d;
   z-index: 2;
-  box-shadow: 5px 10px #29f89152;
+  /* box-shadow: 5px 10px #29f89152; */
   border-radius: 15px;
 }
 
@@ -182,7 +183,7 @@ h1 {
 }
 
 .myButton {
-	box-shadow: 3px 4px 0px 0px #1564ad;
+  box-shadow: 3px 4px 0px 0px #1564ad;
 	background:linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
 	background-color:#79bbff;
 	border-radius:5px;
@@ -200,12 +201,12 @@ h1 {
 }
 
 .myButton:hover {
-	background:linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
+  background:linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
 	background-color:#378de5;
 }
 
 .myButton2 {
-	box-shadow: 3px 4px 0px 0px #3e7327;
+  box-shadow: 3px 4px 0px 0px #3e7327;
 	background:linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
 	background-color:#77b55a;
 	border-radius:5px;
@@ -222,9 +223,14 @@ h1 {
   margin-top: 35px;
 }
 .myButton2:hover {
-	background:linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
+  background:linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
 	background-color:#72b352;
 }
 
 
+.frame {
+  border: 10px solid #4a1274;
+  
+  border-radius: 20px !important;
+}
 
