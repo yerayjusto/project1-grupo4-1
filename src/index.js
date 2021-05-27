@@ -189,6 +189,7 @@ function retry () {
 
 // Win level
 function winLevel () {
+  clearInterval(clock)
   clearInterval(timerId)
   const winLevalMsg = document.getElementById('nextLevel')
   const endGameLMsg = document.getElementById('endGame')
