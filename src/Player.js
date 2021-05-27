@@ -1,4 +1,4 @@
-// Create player
+// PLAYER OBJECT
 function Player (top, left, id) {
   this.width = 24
   this.height = 43

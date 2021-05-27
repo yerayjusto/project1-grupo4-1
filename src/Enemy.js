@@ -1,3 +1,4 @@
+// ENEMY OBJECT
 function Enemy (top, left, id, cssClass, path, distance) {
   this.width = 40
   this.height = 60

@@ -1,18 +1,19 @@
+// STAGES!
 const STAGES = {
 
   stage1: {
     player: {
-      top: 150,
+      top: 50,
       left: 50
     },
     enemies: [
       {
-        top: 400,
+        top: 380,
         left: 260,
         id: 'enemy1',
         cssClass: 'enemy01',
         distance: 3,
-        path: [{ direction: 1, times: 120 }, { direction: 3, times: 120 }]
+        path: [{ direction: 1, times: 90 }, { direction: 3, times: 90 }]
       }
     ],
     goal: {
@@ -21,13 +22,30 @@ const STAGES = {
       width: 60,
       height: 60
     },
-    obstacles: [],
+    obstacles: [
+      {
+        top: 30,
+        left: 250,
+        width: 80,
+        height: 80,
+        id: 'obstacle1',
+        clase: 'obstacle01'
+      },
+      {
+        top: 120,
+        left: 470,
+        width: 80,
+        height: 80,
+        id: 'obstacle2',
+        clase: 'obstacle02'
+      }
+    ],
     time: 10
   },
 
   stage2: {
     player: {
-      top: 300,
+      top: 400,
       left: 50
     },
     enemies: [
@@ -46,10 +64,10 @@ const STAGES = {
         id: 'enemy2',
         cssClass: 'enemy01',
         distance: 1,
-        path: [{ direction: 3, times: 100 }, { direction: 1, times: 100 }]
+        path: [{ direction: 3, times: 110 }, { direction: 1, times: 110 }]
       },
       {
-        top: 300,
+        top: 310,
         left: 500,
         id: 'enemy3',
         cssClass: 'enemy03',
@@ -58,8 +76,8 @@ const STAGES = {
       }
     ],
     goal: {
-      top: 280,
-      left: 556,
+      top: 40,
+      left: 550,
       width: 60,
       height: 60
     },
@@ -67,23 +85,23 @@ const STAGES = {
       {
         top: 0,
         left: 0,
-        width: 600,
+        width: 400,
         height: 120,
         id: 'obstacle1',
         clase: 'obstacle01'
       },
       {
         top: 120,
-        left: 520,
+        left: 470,
         width: 80,
-        height: 40,
+        height: 80,
         id: 'obstacle2',
         clase: 'obstacle02'
       },
       {
         top: 400,
-        left: 0,
-        width: 640,
+        left: 120,
+        width: 520,
         height: 80,
         id: 'obstacle3',
         clase: 'obstacle04'
@@ -94,28 +112,28 @@ const STAGES = {
 
   stage3: {
     player: {
-      top: 100,
-      left: 500
+      top: 420,
+      left: 580
     },
     enemies: [
       {
-        top: 150,
-        left: 150,
+        top: 100,
+        left: 180,
         id: 'enemy1',
         cssClass: 'enemy01',
         distance: 2,
-        path: [{ direction: 4, times: 60 }, { direction: 3, times: 30 }, { direction: 2, times: 60 }, { direction: 1, times: 30 }]
+        path: [{ direction: 4, times: 80 }, { direction: 3, times: 40 }, { direction: 2, times: 80 }, { direction: 1, times: 40 }]
       },
       {
-        top: 40,
-        left: 250,
+        top: 30,
+        left: 280,
         id: 'enemy2',
         cssClass: 'enemy02',
-        distance: 3,
-        path: [{ direction: 3, times: 55 }, { direction: 1, times: 55 }]
+        distance: 4,
+        path: [{ direction: 3, times: 50 }, { direction: 1, times: 50 }]
       },
       {
-        top: 320,
+        top: 350,
         left: 370,
         id: 'enemy3',
         cssClass: 'enemy03',
@@ -132,7 +150,7 @@ const STAGES = {
     obstacles: [
       {
         top: 100,
-        left: 300,
+        left: 360,
         width: 120,
         height: 120,
         id: 'obstacle1',
@@ -141,10 +159,18 @@ const STAGES = {
       {
         top: 400,
         left: 0,
-        width: 640,
+        width: 540,
         height: 80,
         id: 'obstacle2',
         clase: 'obstacle07'
+      },
+      {
+        top: 250,
+        left: 200,
+        width: 80,
+        height: 80,
+        id: 'obstacle3',
+        clase: 'obstacle04'
       }
     ],
     time: 30
