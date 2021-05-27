@@ -16,6 +16,7 @@ function Enemy (top, left, id, cssClass, path, distance) {
   this.create = function () {
     this.elem = document.createElement('div')
     this.elem.setAttribute('id', this.id)
+    this.elem.classList.add('enemy')
     this.elem.classList.add(this.cssClass)
     this.elem.style.top = this.top + 'px'
     this.elem.style.left = this.left + 'px'

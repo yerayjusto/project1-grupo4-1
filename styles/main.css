@@ -31,33 +31,22 @@ body {
 }
 
 .enemy {
-  width: 70px;
-  height: 60px;
+  width: 50px;
+  height: 40px;
   position: absolute;
-  background-image: url(../assets/graphics/enemy-invaders-1.gif);
-  background-size: cover;
 }
 
 .enemy01 {
-  width: 70px;
-  height: 60px;
-  position: absolute;
   background-image: url(../assets/graphics/enemy-invaders01.gif);
   background-size: cover;
 }
 
 .enemy02 {
-  width: 70px;
-  height: 60px;
-  position: absolute;
   background-image: url(../assets/graphics/enemy-invaders02.gif);
   background-size: cover;
 }
 
 .enemy03 {
-  width: 70px;
-  height: 60px;
-  position: absolute;
   background-image: url(../assets/graphics/enemy-invaders03.gif);
   background-size: cover;
 }
