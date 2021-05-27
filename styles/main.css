@@ -93,7 +93,8 @@ body {
   text-align:center;
   font-size: 18px;
 }
-.life{
+
+.life {
   background-image: url(../assets/graphics/life.png);
   width: 20px;
   height: 20px;
@@ -101,6 +102,7 @@ body {
   display: block;
   background-size: cover;
 }
+
 .gameOver{
   display: block;
   width: 500px;
@@ -198,9 +200,18 @@ h1 {
 	text-shadow:0px 1px 0px #5b8a3c;
   margin-top: 35px;
 }
+
 .myButton2:hover {
 	background:linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
 	background-color:#72b352;
+}
+
+#life-container {
+  position: absolute;
+  width: 60px;
+  height: 20px;
+  top: 10px;
+  left: 10px;
 }
 
 

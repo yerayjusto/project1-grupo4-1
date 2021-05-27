@@ -7,6 +7,7 @@ function Player (top, left, id) {
   this.elem = id
   this.distance = 5
   this.direction = 0
+  this.lifes = 3
 
   this.setInitialPosition = function () {
     this.elem.style.top = this.top + 'px'

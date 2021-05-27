@@ -1,167 +1,23 @@
 
 // Crear paredes
-let player
+let player = new Player(0, 0, document.getElementById('player'))
+player.setInitialPosition()
 let enemies
 let timerId
 let obstacles
 let currentStage
 let countDown
-let totalLife = 3
+
 const canvas = {
   width: 640,
   height: 480
 }
 
-// Instancia
-
-const STAGES = {
-
-  stage1: {
-    player: {
-      top: 150,
-      left: 50
-    },
-    enemies: [
-      {
-        top: 400,
-        left: 260,
-        id: 'enemy1',
-        distance: 3,
-        path: [{ direction: 1, times: 120 }, { direction: 3, times: 120 }]
-      }
-    ],
-    goal: {
-      top: 300,
-      left: 540,
-      width: 60,
-      height: 60
-    },
-    obstacles: [],
-    time: 1000000
-  },
-
-  stage2: {
-    player: {
-      top: 300,
-      left: 50
-    },
-    enemies: [
-      {
-        top: 150,
-        left: 150,
-        id: 'enemy1',
-        distance: 1,
-        path: [{ direction: 4, times: 150 }, { direction: 2, times: 150 }]
-      },
-      {
-
-        top: 120,
-        left: 250,
-        id: 'enemy2',
-        distance: 1,
-        path: [{ direction: 3, times: 100 }, { direction: 1, times: 100 }]
-      },
-      {
-        top: 300,
-        left: 500,
-        id: 'enemy3',
-        distance: 3,
-        path: [{ direction: 4, times: 80 }, { direction: 2, times: 80 }]
-      }
-    ],
-    goal: {
-      top: 280,
-      left: 556,
-      width: 60,
-      height: 60
-    },
-    obstacles: [
-      {
-        top: 0,
-        left: 0,
-        width: 600,
-        height: 120,
-        id: 'obstacle1',
-        clase: 'obstacle01'
-      },
-      {
-        top: 120,
-        left: 520,
-        width: 80,
-        height: 40,
-        id: 'obstacle2',
-        clase: 'obstacle02'
-      },
-      {
-        top: 400,
-        left: 0,
-        width: 640,
-        height: 80,
-        id: 'obstacle3',
-        clase: 'obstacle04'
-      }
-    ],
-    time: 100
-  },
-
-  stage3: {
-    player: {
-      top: 100,
-      left: 500
-    },
-    enemies: [
-      {
-        top: 150,
-        left: 150,
-        id: 'enemy1',
-        distance: 2,
-        path: [{ direction: 4, times: 60 }, { direction: 3, times: 30 }, { direction: 2, times: 60 }, { direction: 1, times: 30 }]
-      },
-      {
-        top: 40,
-        left: 250,
-        id: 'enemy2',
-        distance: 3,
-        path: [{ direction: 3, times: 55 }, { direction: 1, times: 55 }]
-      },
-      {
-        top: 320,
-        left: 370,
-        id: 'enemy3',
-        distance: 2,
-        path: [{ direction: 4, times: 110 }, { direction: 2, times: 110 }]
-      }
-    ],
-    goal: {
-      top: 300,
-      left: 30,
-      width: 20,
-      height: 60
-    },
-    obstacles: [
-      {
-        top: 100,
-        left: 300,
-        width: 120,
-        height: 120,
-        id: 'obstacle1',
-        clase: 'obstacle05'
-      },
-      {
-        top: 400,
-        left: 0,
-        width: 640,
-        height: 80,
-        id: 'obstacle2',
-        clase: 'obstacle07'
-      }
-    ],
-    time: 100
-  }
-}
 
 let level = 1
 startGame(level)
+setLife()
+
 
 // COLISIONES
 function colision (targetObj, collidedObj) {
@@ -247,8 +103,10 @@ function startGame (level) {
   overlay.style.display = 'none'
   currentStage = STAGES[`stage${level}`]
   countDown = currentStage.time
-  player = new Player(currentStage.player.top, currentStage.player.left, document.getElementById('player'))
-  player.setInitialPosition()
+  player.top = currentStage.player.top
+  player.left = currentStage.player.left
+  player.elem.style.top = player.top + 'px'
+  player.elem.style.left = player.left + 'px'
 
   enemies = []
   for (let i = 0; i < currentStage.enemies.length; i++) {
@@ -258,7 +116,6 @@ function startGame (level) {
 
   document.getElementById('goal').style.top = currentStage.goal.top + 'px'
   document.getElementById('goal').style.left = currentStage.goal.left + 'px'
-  console.log(currentStage.goal.top, currentStage.goal.left, 'hh')
 
   obstacles = []
 
@@ -274,24 +131,19 @@ function startGame (level) {
     obstacles[i].create()
   }
   animate()
-  time()
-  life()
+  setTime()
 }
 
-function life () {
-  const addLife = []
+function setLife () {
   let left = 0
-  for (let i = 1; i <= totalLife; i++) {
-    addLife[i] = document.createElement('div')
-    addLife[i].setAttribute('class', 'life')
-    addLife[i].setAttribute('id', `life${i}`)
-    addLife[i].classList.add('life')
-    addLife[i].style.top = 0 + 'px'
-    addLife[i].style.left = left + 'px'
-    const canvas = document.getElementById('canvas')
-    canvas.appendChild(addLife[i])
-    addLife[i] = document.getElementsByClassName(`life${i}`)
-    console.log(addLife[i])
+  console.log(player)
+  for (let i = 1; i <= player.lifes; i++) {
+    const life = document.createElement('div')
+    life.setAttribute('class', 'life')
+    life.setAttribute('id', `life${i}`)
+    life.style.left = left + 'px'
+    const container = document.getElementById('life-container')
+    container.appendChild(life)
     left += 20
   }
 }
@@ -309,12 +161,13 @@ function gameOver () {
   gameOverMsg.style.display = 'block'
   overlay.style.display = 'block'
 }
+
 function retry () {
   level = 1
-  const canvas = document.getElementById('canvas')
-  const lifeElement = document.getElementById(`life${totalLife}`)
-  canvas.removeChild(lifeElement)
-  totalLife--
+  const container = document.getElementById('life-container')
+  const lifeElement = document.getElementById(`life${player.lifes}`)
+  container.removeChild(lifeElement)
+  player.lifes--
   startGame(level)
 }
 
@@ -334,7 +187,7 @@ function winLevel () {
   overlay.style.display = 'block'
 }
 
-function time () {
+function setTime () {
   const timer = setInterval(function () {
     countDown--
     if (countDown === 0) {
