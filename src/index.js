@@ -7,11 +7,11 @@ let obstacles
 let currentStage
 let countDown
 let clock
-const bgMusic = new Audio('https://venturedesigner.github.io/project1-grupo4/dev/assets/sounds/synapse.mp3')
-const effectGoal = new Audio('https://venturedesigner.github.io/project1-grupo4/dev/assets/sounds/warp.wav')
-const effectHit = new Audio('https://venturedesigner.github.io/project1-grupo4/dev/assets/sounds/hit.wav')
-const effectHitWall = new Audio('https://venturedesigner.github.io/project1-grupo4/dev/assets/sounds/hitWall.wav')
-const effectFail = new Audio('https://venturedesigner.github.io/project1-grupo4/dev/assets/sounds/gameOver.wav')
+const bgMusic = new Audio('https://venturedesigner.github.io/project1-grupo4/assets/sounds/synapse.mp3')
+const effectGoal = new Audio('https://venturedesigner.github.io/project1-grupo4/assets/sounds/warp.wav')
+const effectHit = new Audio('https://venturedesigner.github.io/project1-grupo4/assets/sounds/hit.wav')
+const effectHitWall = new Audio('https://venturedesigner.github.io/project1-grupo4/assets/sounds/hitWall.wav')
+const effectFail = new Audio('https://venturedesigner.github.io/project1-grupo4/assets/sounds/gameOver.wav')
 
 const canvas = {
   width: 640,
