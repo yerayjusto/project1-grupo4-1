@@ -1,9 +1,10 @@
-function Enemy (top, left, id, path, distance) {
+function Enemy (top, left, id, cssClass, path, distance) {
   this.width = 40
   this.height = 60
   this.top = top
   this.left = left
   this.id = id
+  this.cssClass = cssClass
   this.elem = ''
   this.distance = distance
   this.count = 0
@@ -15,6 +16,7 @@ function Enemy (top, left, id, path, distance) {
     this.elem = document.createElement('div')
     this.elem.setAttribute('id', this.id)
     this.elem.classList.add('enemy')
+    this.elem.classList.add(this.cssClass)
     this.elem.style.top = this.top + 'px'
     this.elem.style.left = this.left + 'px'
     const canvas = document.getElementById('canvas')
@@ -38,12 +40,7 @@ Enemy.prototype.move = function () {
       this.left -= this.distance
       break
   }
-  /* if (this.path.length < this.count) {
-    this.count = 0
-  } else {
-    this.count++
-  } */
-
+  
   if (this.innerCount >= this.path[this.count].times) {
     this.innerCount = 0
     this.count++

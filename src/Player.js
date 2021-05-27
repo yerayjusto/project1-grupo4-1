@@ -1,13 +1,19 @@
 // Create player
-function Player (top, left, id) {
-  this.width = 40
-  this.height = 60
+function Player(top, left, id) {
+  this.width = 24
+  this.height = 43
   this.top = top
   this.left = left
   this.elem = id
-  this.distance = 5
+  this.distance = 6
   this.direction = 0
   this.lifes = 3
+  this.widthOfSpriteSheet = 100
+  this.widthOfEachSprite = 32
+  this.spritetHeight = 3
+  this.position = 4
+  this.startedPositionSheetWidth = 4
+  this.startedPositionSheetHeight = 3
 
   this.setInitialPosition = function () {
     this.elem.style.top = this.top + 'px'
@@ -18,15 +24,19 @@ function Player (top, left, id) {
 Player.prototype.setDirection = function (value) {
   switch (value) {
     case 'ArrowUp':
+      this.spriteHeight = this.startedPositionSheetHeight + ((4 + 44) * 3)
       this.direction = 1
       break
     case 'ArrowRight':
+      this.spriteHeight = this.startedPositionSheetHeight + ((4 + 44) * 2)
       this.direction = 2
       break
     case 'ArrowDown':
+      this.spriteHeight = this.startedPositionSheetHeight
       this.direction = 3
       break
     case 'ArrowLeft':
+      this.spriteHeight = this.startedPositionSheetHeight + (4 + 44)
       this.direction = 4
       break
   }
@@ -50,8 +60,18 @@ Player.prototype.move = function () {
   }
   this.elem.style.top = this.top + 'px'
   this.elem.style.left = this.left + 'px'
-
+  this.changeAnimation()
   this.direction = 0
+}
+
+Player.prototype.changeAnimation = function () {
+  this.elem.style.backgroundPosition = `-${this.position}px -${this.spriteHeight}px`
+
+  if (this.position < this.widthOfSpriteSheet) {
+    this.position += this.widthOfEachSprite
+  } else {
+    this.position = this.startedPositionSheetWidth
+  }
 }
 
 Player.prototype.getNextPosition = function () {

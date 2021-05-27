@@ -7,17 +7,15 @@ let timerId
 let obstacles
 let currentStage
 let countDown
+let clock
 
 const canvas = {
   width: 640,
   height: 480
 }
 
-
 let level = 1
-startGame(level)
-setLife()
-
+const finalLevel = 3
 
 // COLISIONES
 function colision (targetObj, collidedObj) {
@@ -80,6 +78,7 @@ function animate () {
         player.move()
       }
     }
+
     for (let i = 0; i < enemies.length; i++) {
       if (enemies[i].getDirection !== 0) {
         const enemyNextPos = enemies[i].getNextPosition()
@@ -95,6 +94,10 @@ function animate () {
 }
 
 function startGame (level) {
+  const intro = document.getElementById('intro')
+  intro.style.display = 'none'
+  const endGameLMsg = document.getElementById('endGame')
+  endGameLMsg.style.display = 'none'
   const gameOverMsg = document.getElementById('gameOver')
   gameOverMsg.style.display = 'none'
   const nextLevelMsg = document.getElementById('nextLevel')
@@ -110,10 +113,9 @@ function startGame (level) {
 
   enemies = []
   for (let i = 0; i < currentStage.enemies.length; i++) {
-    enemies.push(new Enemy(currentStage.enemies[i].top, currentStage.enemies[i].left, currentStage.enemies[i].id, currentStage.enemies[i].path, currentStage.enemies[i].distance))
+    enemies.push(new Enemy(currentStage.enemies[i].top, currentStage.enemies[i].left, currentStage.enemies[i].id, currentStage.enemies[i].cssClass, currentStage.enemies[i].path, currentStage.enemies[i].distance))
     enemies[i].create()
   }
-
   document.getElementById('goal').style.top = currentStage.goal.top + 'px'
   document.getElementById('goal').style.left = currentStage.goal.left + 'px'
 
@@ -131,6 +133,7 @@ function startGame (level) {
     obstacles[i].create()
   }
   animate()
+  clearInterval(clock)
   setTime()
 }
 
@@ -171,9 +174,11 @@ function retry () {
   startGame(level)
 }
 
+// Win level
 function winLevel () {
   clearInterval(timerId)
   const winLevalMsg = document.getElementById('nextLevel')
+  const endGameLMsg = document.getElementById('endGame')
   const overlay = document.getElementById('overlay')
 
   for (let i = 0; i < enemies.length; i++) {
@@ -183,12 +188,17 @@ function winLevel () {
   for (let i = 0; i < obstacles.length; i++) {
     obstacles[i].destroy()
   }
-  winLevalMsg.style.display = 'block'
   overlay.style.display = 'block'
+  if (level === finalLevel) {
+    endGameLMsg.style.display = 'block'
+    level = 1
+  } else {
+    winLevalMsg.style.display = 'block'
+  }
 }
 
 function setTime () {
-  const timer = setInterval(function () {
+  clock = setInterval(function () {
     countDown--
     if (countDown === 0) {
       clearInterval(timer)
@@ -205,8 +215,16 @@ function nextLevel () {
   startGame(level)
 }
 
+// startGame(level)
+const startButton = document.getElementById('start')
+startButton.addEventListener('click', function () {
+  setLife()
+  startGame(level)
+})
+
 // Player movements
 window.addEventListener('keydown', function (e) {
+  console.log('move')
   player.setDirection(e.code)
 })
 
@@ -219,3 +237,10 @@ retryButton.onclick = retry
 const nextLevelButton = document.getElementById('nextLevel')
 console.log(nextLevelButton)
 nextLevelButton.onclick = nextLevel
+
+// Listening to reset game
+document.getElementById('playAgain').addEventListener('click', function (e) {
+  player.lifes = 3
+  setLife()
+  startGame(level)
+})
