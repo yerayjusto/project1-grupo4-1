@@ -70,6 +70,7 @@ function animate () {
 
       if (collisionEnemies(playerNextPos, enemies) === true) {
         effectHit.play()
+        effectFail.play()
         retry()
       } else if (collisionCanvas(playerNextPos) === true) {
         effectHitWall.play()
@@ -91,6 +92,7 @@ function animate () {
         const enemyNextPos = enemies[i].getNextPosition()
         if (colision(enemyNextPos, player)) {
           effectHit.play()
+          effectFail.play()
           retry()
         } else {
           enemies[i].move()
@@ -271,7 +273,6 @@ const retryButton = document.getElementById('retry')
 console.log(retryButton)
 retryButton.onclick = retry
 
-
 // Next Level
 const nextLevelButton = document.getElementById('nextLevel')
 console.log(nextLevelButton)
@@ -279,10 +280,13 @@ nextLevelButton.onclick = nextLevel
 
 // Next Level Keydown
 const nextLevelMsg = document.getElementById('nextLevel')
+const introMsg = document.getElementById('intro')
 
 window.addEventListener('keydown', function (e) {
-  if (e.code === 'Enter'  && nextLevelMsg.style.display === 'block') {
+  if (e.code === 'Enter' && nextLevelMsg.style.display === 'block') {
     nextLevel()
+  } else if (e.code === 'Enter' && introMsg.style.display === 'block') {
+    startGame(level)
   }
 })
 
@@ -292,3 +296,5 @@ document.getElementById('playAgain').addEventListener('click', function (e) {
   setLife()
   startGame(level)
 })
+
+// introMsg.setAttribute('style', 'display: block')
