@@ -1,5 +1,5 @@
 // Create player
-function Player(top, left, id) {
+function Player (top, left, id) {
   this.width = 24
   this.height = 43
   this.top = top

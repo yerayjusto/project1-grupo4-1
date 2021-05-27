@@ -1,6 +1,5 @@
-
 // Crear paredes
-let player = new Player(0, 0, document.getElementById('player'))
+const player = new Player(0, 0, document.getElementById('player'))
 player.setInitialPosition()
 let enemies
 let timerId
@@ -65,15 +64,13 @@ function animate () {
       const playerNextPos = player.getNextPosition()
 
       if (collisionEnemies(playerNextPos, enemies) === true) {
-        console.log('enemigo')
-        gameOver()
+        retry()
       } else if (collisionCanvas(playerNextPos) === true) {
-        console.log('canvas')
+        player.direction = 0
       } else if (colision(playerNextPos, currentStage.goal) === true) {
-        console.log('goal')
         winLevel()
       } else if (collisionObstacles(playerNextPos, obstacles) === true) {
-        console.log('obstacle')
+        player.direction = 0
       } else {
         player.move()
       }
@@ -83,8 +80,7 @@ function animate () {
       if (enemies[i].getDirection !== 0) {
         const enemyNextPos = enemies[i].getNextPosition()
         if (colision(enemyNextPos, player)) {
-          console.log('enemigo2')
-          gameOver()
+          retry()
         } else {
           enemies[i].move()
         }
@@ -152,6 +148,7 @@ function setLife () {
 }
 
 function gameOver () {
+  clearInterval(clock)
   clearInterval(timerId)
   const gameOverMsg = document.getElementById('gameOver')
   const overlay = document.getElementById('overlay')
@@ -166,12 +163,28 @@ function gameOver () {
 }
 
 function retry () {
-  level = 1
-  const container = document.getElementById('life-container')
-  const lifeElement = document.getElementById(`life${player.lifes}`)
-  container.removeChild(lifeElement)
-  player.lifes--
-  startGame(level)
+  if (player.lifes === 0) {
+    gameOver()
+    player.lifes = 3
+    level = 1
+    const intro = document.getElementById('intro')
+    intro.style.display = 'block'
+  } else {
+    const container = document.getElementById('life-container')
+    const lifeElement = document.getElementById(`life${player.lifes}`)
+    container.removeChild(lifeElement)
+    document.getElementById('timer').innerText = ''
+    for (let i = 0; i < enemies.length; i++) {
+      enemies[i].destroyEnemy()
+    }
+    for (let i = 0; i < obstacles.length; i++) {
+      obstacles[i].destroy()
+    }
+    clearInterval(timerId)
+    clearInterval(clock)
+    player.lifes--
+    startGame(level)
+  }
 }
 
 // Win level
@@ -201,9 +214,20 @@ function setTime () {
   clock = setInterval(function () {
     countDown--
     if (countDown === 0) {
-      clearInterval(timer)
+      clearInterval(timerId)
+      clearInterval(clock)
+      const container = document.getElementById('life-container')
+      const lifeElement = document.getElementById(`life${player.lifes}`)
+      container.removeChild(lifeElement)
+      player.lifes--
+      for (let i = 0; i < enemies.length; i++) {
+        enemies[i].destroyEnemy()
+      }
+      for (let i = 0; i < obstacles.length; i++) {
+        obstacles[i].destroy()
+      }
       document.getElementById('timer').innerText = ''
-      gameOver()
+      startGame(level)
     } else {
       document.getElementById('timer').innerText = 'time ' + countDown
     }
