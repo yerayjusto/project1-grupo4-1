@@ -76,7 +76,7 @@ function animate () {
       } else if (collisionCanvas(playerNextPos) === true) {
         effectHitWall.play()
         player.direction = 0
-      } else if (colision(playerNextPos, currentStage.goal) === true) {
+      } else if (collision(playerNextPos, currentStage.goal) === true) {
         effectGoal.play()
         winLevel()
       } else if (collisionObstacles(playerNextPos, obstacles) === true) {
@@ -91,7 +91,7 @@ function animate () {
     for (let i = 0; i < enemies.length; i++) {
       if (enemies[i].getDirection !== 0) {
         const enemyNextPos = enemies[i].getNextPosition()
-        if (colision(enemyNextPos, player)) {
+        if (collision(enemyNextPos, player)) {
           effectHit.play()
           effectFail.play()
           retry()
