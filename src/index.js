@@ -257,10 +257,20 @@ const retryButton = document.getElementById('retry')
 console.log(retryButton)
 retryButton.onclick = retry
 
+
 // Next Level
 const nextLevelButton = document.getElementById('nextLevel')
 console.log(nextLevelButton)
 nextLevelButton.onclick = nextLevel
+
+// Next Level Keydown
+const nextLevelMsg = document.getElementById('nextLevel')
+
+window.addEventListener('keydown', function (e) {
+  if (e.code === 'Enter'  && nextLevelMsg.style.display === 'block') {
+    nextLevel()
+  }
+})
 
 // Listening to reset game
 document.getElementById('playAgain').addEventListener('click', function (e) {
