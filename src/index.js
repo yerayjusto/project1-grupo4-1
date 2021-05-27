@@ -9,6 +9,10 @@ let currentStage
 let countDown
 let clock
 const bgMusic = new Audio('/assets/sounds/synapse.mp3')
+const effectGoal = new Audio('/assets/sounds/warp.wav')
+const effectHit = new Audio('/assets/sounds/hit.wav')
+const effectHitWall = new Audio('/assets/sounds/hitWall.wav')
+const effectFail = new Audio('/assets/sounds/gameOver.wav')
 
 const canvas = {
   width: 640,
@@ -66,15 +70,18 @@ function animate () {
       const playerNextPos = player.getNextPosition()
 
       if (collisionEnemies(playerNextPos, enemies) === true) {
-        console.log('enemigo')
+        effectHit.play()
         gameOver()
       } else if (collisionCanvas(playerNextPos) === true) {
-        console.log('canvas')
+        effectHitWall.play()
+        player.direction = 0
       } else if (colision(playerNextPos, currentStage.goal) === true) {
-        console.log('goal')
+        effectGoal.play()
         winLevel()
       } else if (collisionObstacles(playerNextPos, obstacles) === true) {
-        console.log('obstacle')
+        console.log(player.direction)
+        player.direction = 0
+        effectHitWall.play()
       } else {
         player.move()
       }
@@ -84,7 +91,7 @@ function animate () {
       if (enemies[i].getDirection !== 0) {
         const enemyNextPos = enemies[i].getNextPosition()
         if (colision(enemyNextPos, player)) {
-          console.log('enemigo2')
+          effectHit.play()
           gameOver()
         } else {
           enemies[i].move()
@@ -156,6 +163,7 @@ function setLife () {
 
 function gameOver () {
   clearInterval(timerId)
+  effectFail.play()
   const gameOverMsg = document.getElementById('gameOver')
   const overlay = document.getElementById('overlay')
   for (let i = 0; i < enemies.length; i++) {

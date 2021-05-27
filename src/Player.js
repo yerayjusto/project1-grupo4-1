@@ -62,6 +62,7 @@ Player.prototype.move = function () {
   this.elem.style.left = this.left + 'px'
   this.changeAnimation()
   this.direction = 0
+  console.log(this.direction)
 }
 
 Player.prototype.changeAnimation = function () {
