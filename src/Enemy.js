@@ -40,7 +40,7 @@ Enemy.prototype.move = function () {
       this.left -= this.distance
       break
   }
-  
+
   if (this.innerCount >= this.path[this.count].times) {
     this.innerCount = 0
     this.count++
