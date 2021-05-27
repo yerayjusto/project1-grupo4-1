@@ -1,8 +1,11 @@
 body {
   margin: 0;
-  /* background-image: url(../assets/graphics/bg1.jpg);*/
-  background-color: black;
-  background-size: cover;
+    background: url(../assets/graphics/bg3.jpg) no-repeat center center fixed;
+    background-color: black;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 }
 
 .intro {
