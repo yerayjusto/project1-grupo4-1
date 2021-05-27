@@ -7,6 +7,7 @@ let obstacles
 let currentStage
 let countDown
 let clock
+const bgMusic = new Audio('/assets/sounds/synapse.mp3')
 
 const canvas = {
   width: 640,
@@ -128,6 +129,8 @@ function startGame (level) {
     ))
     obstacles[i].create()
   }
+  bgMusic.play()
+  bgMusic.loop = true
   animate()
   clearInterval(clock)
   setTime()
