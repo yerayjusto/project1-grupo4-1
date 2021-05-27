@@ -31,10 +31,10 @@ body {
 }
 
 .enemy {
-  width: 40px;
+  width: 70px;
   height: 60px;
   position: absolute;
-  background-image: url(../assets/graphics/enemy-alien.gif);
+  background-image: url(../assets/graphics/enemy-invaders-1.gif);
   background-size: cover;
 }
 
