@@ -261,7 +261,7 @@ function setTime () {
       document.getElementById('timer').innerText = ''
       startGame(level)
     } else {
-      document.getElementById('timer').innerText = 'time ' + countDown
+      document.getElementById('timer').innerText = 'Time ' + countDown
     }
   }, 1000)
 }

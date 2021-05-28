@@ -40,7 +40,7 @@ const STAGES = {
         clase: 'obstacle02'
       }
     ],
-    time: 10
+    time: 100
   },
 
   stage2: {
@@ -107,7 +107,7 @@ const STAGES = {
         clase: 'obstacle04'
       }
     ],
-    time: 20
+    time: 100
   },
 
   stage3: {
@@ -173,6 +173,6 @@ const STAGES = {
         clase: 'obstacle04'
       }
     ],
-    time: 30
+    time: 100
   }
 }
