@@ -39,13 +39,13 @@ body {
 
 
 #player {
-  width: 24px;
-  height: 43px;
+  width: 35px;
+  height: 62px;
   top: 10px;
   left: 10px;
   position: absolute;
   background-image: url(../assets/graphics/spritexb-8223.png);
-  background-position: -4px -3px;
+  background-position: -7px -7px;
 }
 
 .enemy {
@@ -55,7 +55,7 @@ body {
 }
 
 .enemy01 {
-  background-image: url(../assets/graphics/enemy-invaders01.gif);
+ background-image: url(../assets/graphics/enemy-invaders01.gif);
   background-size: cover;
 }
 
