@@ -12,6 +12,7 @@ function Enemy (top, left, id, cssClass, path, distance) {
   this.innerCount = 0
   this.path = path
   this.html = ''
+  this.shadow = ''
 
   this.create = function () {
     this.elem = document.createElement('div')
@@ -23,6 +24,8 @@ function Enemy (top, left, id, cssClass, path, distance) {
     const canvas = document.getElementById('canvas')
     canvas.appendChild(this.elem)
     this.elem = document.getElementById(this.id)
+    this.shadow = new Shadow(this.top + this.height * 0.9, this.left, this.width, this.height * 0.4, this.id + 'Shadow', 'shadow')
+    this.shadow.create()
   }
 }
 
@@ -55,6 +58,9 @@ Enemy.prototype.move = function () {
 
   this.elem.style.top = this.top + 'px'
   this.elem.style.left = this.left + 'px'
+  this.shadow.top = this.top + this.height * 0.9
+  this.shadow.left = this.left
+  this.shadow.updatePosition()
 }
 
 Enemy.prototype.getDirection = function () {
@@ -87,6 +93,7 @@ Enemy.prototype.getNextPosition = function () {
 }
 
 Enemy.prototype.destroyEnemy = function () {
+  this.shadow.destroy()
   const canvas = document.getElementById('canvas')
   canvas.removeChild(this.elem)
 }

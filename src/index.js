@@ -1,6 +1,7 @@
 // CREATE PLAYER
 const player = new Player(0, 0, document.getElementById('player'))
-player.setInitialPosition()
+const goal = new Goal(100, 100, document.getElementById('goal'))
+
 let enemies
 let timerId
 let obstacles
@@ -63,8 +64,75 @@ function collisionObstacles (targetObj, obstacles) {
   return false
 }
 
+// STAR GAME FUNCTION
+function startGame (level) {
+  const intro = document.getElementById('intro')
+  intro.style.display = 'none'
+  const endGameLMsg = document.getElementById('endGame')
+  endGameLMsg.style.display = 'none'
+  const gameOverMsg = document.getElementById('gameOver')
+  gameOverMsg.style.display = 'none'
+  const nextLevelMsg = document.getElementById('nextLevel')
+  nextLevelMsg.style.display = 'none'
+  const overlay = document.getElementById('overlay')
+  overlay.style.display = 'none'
+  currentStage = STAGES[`stage${level}`]
+  countDown = currentStage.time
+  player.top = currentStage.player.top
+  player.left = currentStage.player.left
+  player.updatePosition()
+
+  enemies = []
+  for (let i = 0; i < currentStage.enemies.length; i++) {
+    enemies.push(new Enemy(currentStage.enemies[i].top, currentStage.enemies[i].left, currentStage.enemies[i].id, currentStage.enemies[i].cssClass, currentStage.enemies[i].path, currentStage.enemies[i].distance))
+    enemies[i].create()
+  }
+  goal.top = currentStage.goal.top
+  goal.left = currentStage.goal.left
+  goal.updatePosition()
+
+  obstacles = []
+
+  for (let i = 0; i < currentStage.obstacles.length; i++) {
+    obstacles.push(new Obstacle(
+      currentStage.obstacles[i].top,
+      currentStage.obstacles[i].left,
+      currentStage.obstacles[i].width,
+      currentStage.obstacles[i].height,
+      currentStage.obstacles[i].id,
+      currentStage.obstacles[i].clase
+    ))
+    obstacles[i].create()
+  }
+  bgMusic.play()
+  bgMusic.loop = true
+  clearInterval(clock)
+  setTime()
+  animate()
+}
+
+// SET LIFE PLAYER
+function setLife () {
+  for (let i = 1; i <= player.lifes; i++) {
+    const container = document.getElementById('life-container')
+    const lifeElement = document.getElementById(`life${i}`)
+    if (lifeElement) container.removeChild(lifeElement)
+  }
+  let left = 0
+  player.lifes = 3
+  for (let i = 1; i <= player.lifes; i++) {
+    const life = document.createElement('div')
+    life.setAttribute('class', 'life')
+    life.setAttribute('id', `life${i}`)
+    life.style.left = left + 'px'
+    const container = document.getElementById('life-container')
+    container.appendChild(life)
+    left += 20
+  }
+}
+
 // ANIMATE GAME FUNCTION
-function animate () {
+function animate() {
   timerId = setInterval(function () {
     if (player.direction !== 0) {
       const playerNextPos = player.getNextPosition()
@@ -101,73 +169,6 @@ function animate () {
       }
     }
   }, 20)
-}
-
-// STAR GAME FUNCTION
-function startGame (level) {
-  const intro = document.getElementById('intro')
-  intro.style.display = 'none'
-  const endGameLMsg = document.getElementById('endGame')
-  endGameLMsg.style.display = 'none'
-  const gameOverMsg = document.getElementById('gameOver')
-  gameOverMsg.style.display = 'none'
-  const nextLevelMsg = document.getElementById('nextLevel')
-  nextLevelMsg.style.display = 'none'
-  const overlay = document.getElementById('overlay')
-  overlay.style.display = 'none'
-  currentStage = STAGES[`stage${level}`]
-  countDown = currentStage.time
-  player.top = currentStage.player.top
-  player.left = currentStage.player.left
-  player.elem.style.top = player.top + 'px'
-  player.elem.style.left = player.left + 'px'
-
-  enemies = []
-  for (let i = 0; i < currentStage.enemies.length; i++) {
-    enemies.push(new Enemy(currentStage.enemies[i].top, currentStage.enemies[i].left, currentStage.enemies[i].id, currentStage.enemies[i].cssClass, currentStage.enemies[i].path, currentStage.enemies[i].distance))
-    enemies[i].create()
-  }
-  document.getElementById('goal').style.top = currentStage.goal.top + 'px'
-  document.getElementById('goal').style.left = currentStage.goal.left + 'px'
-
-  obstacles = []
-
-  for (let i = 0; i < currentStage.obstacles.length; i++) {
-    obstacles.push(new Obstacle(
-      currentStage.obstacles[i].top,
-      currentStage.obstacles[i].left,
-      currentStage.obstacles[i].width,
-      currentStage.obstacles[i].height,
-      currentStage.obstacles[i].id,
-      currentStage.obstacles[i].clase
-    ))
-    obstacles[i].create()
-  }
-  bgMusic.play()
-  bgMusic.loop = true
-  animate()
-  clearInterval(clock)
-  setTime()
-}
-
-// SET LIFE PLAYER
-function setLife () {
-  for (let i = 1; i <= player.lifes; i++) {
-    const container = document.getElementById('life-container')
-    const lifeElement = document.getElementById(`life${i}`)
-    if (lifeElement) container.removeChild(lifeElement)
-  }
-  let left = 0
-  player.lifes = 3
-  for (let i = 1; i <= player.lifes; i++) {
-    const life = document.createElement('div')
-    life.setAttribute('class', 'life')
-    life.setAttribute('id', `life${i}`)
-    life.style.left = left + 'px'
-    const container = document.getElementById('life-container')
-    container.appendChild(life)
-    left += 20
-  }
 }
 
 // GAME OVER FUNCTION
@@ -266,6 +267,7 @@ function setTime () {
   }, 1000)
 }
 
+// CHANGE LEVEL FUNCTION
 function nextLevel () {
   level++
   startGame(level)
@@ -275,6 +277,7 @@ function nextLevel () {
 const startButton = document.getElementById('start')
 startButton.addEventListener('click', function () {
   setLife()
+  setTime()
   startGame(level)
 })
 

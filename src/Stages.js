@@ -19,7 +19,7 @@ const STAGES = {
     goal: {
       top: 300,
       left: 540,
-      width: 60,
+      width: 30,
       height: 60
     },
     obstacles: [
@@ -78,7 +78,7 @@ const STAGES = {
     goal: {
       top: 40,
       left: 550,
-      width: 60,
+      width: 30,
       height: 60
     },
     obstacles: [
@@ -144,7 +144,7 @@ const STAGES = {
     goal: {
       top: 300,
       left: 30,
-      width: 20,
+      width: 30,
       height: 60
     },
     obstacles: [

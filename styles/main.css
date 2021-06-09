@@ -41,11 +41,16 @@ body {
 #player {
   width: 35px;
   height: 62px;
-  top: 10px;
-  left: 10px;
   position: absolute;
   background-image: url(../assets/graphics/spritexb-8223.png);
-  background-position: -7px -7px;
+  background-position: -7px -7px;;
+}
+
+.shadow {
+  background-image: url(../assets/graphics/shadow.png);
+  position: absolute;
+  background-size: cover;
+  z-index: -1;
 }
 
 .enemy {
@@ -55,7 +60,7 @@ body {
 }
 
 .enemy01 {
- background-image: url(../assets/graphics/enemy-invaders01.gif);
+  background-image: url(../assets/graphics/enemy-invaders01.gif);
   background-size: cover;
 }
 
@@ -114,6 +119,7 @@ body {
   background-size: cover;
   background-position: -15px;
 }
+
 #timer {
   display: block;
   width: 110px;

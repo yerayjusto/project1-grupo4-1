@@ -1,10 +1,10 @@
 // PLAYER OBJECT
-function Player (top, left, id) {
+function Player (top, left, elem) {
   this.width = 31
   this.height = 61
   this.top = top
   this.left = left
-  this.elem = id
+  this.elem = elem
   this.distance = 6
   this.direction = 0
   this.lifes = 3
@@ -14,11 +14,17 @@ function Player (top, left, id) {
   this.position = 7
   this.startedPositionSheetWidth = 7
   this.startedPositionSheetHeight = 7
+  this.shadow = new Shadow(this.top + this.height * 0.9, this.left, this.width + 5, this.height * 0.2, 'playerShadow', 'shadow')
+  this.shadow.create()
+  this.updatePosition()
+}
 
-  this.setInitialPosition = function () {
-    this.elem.style.top = this.top + 'px'
-    this.elem.style.left = this.left + 'px'
-  }
+Player.prototype.updatePosition = function () {
+  this.elem.style.top = this.top + 'px'
+  this.elem.style.left = this.left + 'px'
+  this.shadow.top = this.top + this.height * 0.9
+  this.shadow.left = this.left
+  this.shadow.updatePosition()
 }
 
 Player.prototype.setDirection = function (value) {
@@ -58,8 +64,7 @@ Player.prototype.move = function () {
       this.left -= this.distance
       break
   }
-  this.elem.style.top = this.top + 'px'
-  this.elem.style.left = this.left + 'px'
+  this.updatePosition()
   this.changeAnimation()
   this.direction = 0
   console.log(this.direction)
