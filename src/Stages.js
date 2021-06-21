@@ -13,7 +13,7 @@ const STAGES = {
         id: 'enemy1',
         cssClass: 'enemy01',
         distance: 3,
-        path: [{ direction: 1, times: 90 }, { direction: 3, times: 90 }]
+        path: [{ direction: 1, times: 85 }, { direction: 3, times: 85 }]
       }
     ],
     goal: {
@@ -26,18 +26,26 @@ const STAGES = {
       {
         top: 30,
         left: 250,
-        width: 80,
-        height: 80,
+        width: 92,
+        height: 90,
         id: 'obstacle1',
         clase: 'obstacle01'
       },
       {
         top: 120,
         left: 470,
-        width: 80,
-        height: 80,
+        width: 92,
+        height: 90,
         id: 'obstacle2',
-        clase: 'obstacle02'
+        clase: 'obstacle01'
+      },
+      {
+        top: 170,
+        left: 470,
+        width: 92,
+        height: 90,
+        id: 'obstacle3',
+        clase: 'obstacle01'
       }
     ],
     time: 100

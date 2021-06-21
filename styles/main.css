@@ -75,7 +75,7 @@ body {
 }
 
 .obstacle01 {
-  background-image:url(../assets/graphics/obstacle01.png);
+  background-image:url(../assets/graphics/obs-plant-01.png);
   position: absolute;
 }
 
@@ -181,7 +181,7 @@ body {
 }
 
 .overlay {
-  
+
   background-color: #27155dd7;
   width: 640px;
   height: 480px;
@@ -275,7 +275,6 @@ h1 {
 
 .frame {
   border: 10px solid #4a1274;
-  
+
   border-radius: 20px !important;
 }
-
