@@ -14,7 +14,7 @@ function Player (top, left, elem) {
   this.position = 7
   this.startedPositionSheetWidth = 7
   this.startedPositionSheetHeight = 7
-  this.shadow = new Shadow(this.top + this.height * 0.9, this.left, this.width + 5, this.height * 0.2, 'playerShadow', 'shadow')
+  this.shadow = new Shadow(this.top + this.height * 0.9, this.left - 2, this.width + 8, this.height * 0.2, 'playerShadow', 'shadow')
   this.shadow.create()
   this.updatePosition()
 }
@@ -23,7 +23,7 @@ Player.prototype.updatePosition = function () {
   this.elem.style.top = this.top + 'px'
   this.elem.style.left = this.left + 'px'
   this.shadow.top = this.top + this.height * 0.9
-  this.shadow.left = this.left
+  this.shadow.left = this.left - 2
   this.shadow.updatePosition()
 }
 
