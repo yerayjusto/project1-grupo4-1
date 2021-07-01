@@ -23,7 +23,23 @@ let level = 1
 const finalLevel = 3
 
 // COLLISIONS
+/*function collision (targetObj, collidedObj) {
+  if ((targetObj.left < collidedObj.left + collidedObj.width) &&
+    (targetObj.top < collidedObj.top + collidedObj.height) &&
+    (collidedObj.left < targetObj.left + targetObj.width) &&
+    (collidedObj.top < targetObj.top + targetObj.height)) {
+    return true
+  } else {
+    return false
+  }
+}*/
+
 function collision (targetObj, collidedObj) {
+  const targetObjtop2D = targetObj.top + ((targetObj.height * 3) / 4)
+  const targetObjheight2D = targetObj.height / 4
+  const collidedObjtop2D = collidedObj.top + ((collidedObj.height * 3) / 4)
+
+
   if ((targetObj.left < collidedObj.left + collidedObj.width) &&
     (targetObj.top < collidedObj.top + collidedObj.height) &&
     (collidedObj.left < targetObj.left + targetObj.width) &&
@@ -58,6 +74,7 @@ function collisionEnemies (targetObj, enemies) {
 function collisionObstacles (targetObj, obstacles) {
   for (let i = 0; i < obstacles.length; i++) {
     if (collision(targetObj, obstacles[i]) === true) {
+      console.log('collision')
       return true
     }
   }
