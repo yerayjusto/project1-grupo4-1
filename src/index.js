@@ -8,6 +8,7 @@ let obstacles
 let currentStage
 let countDown
 let clock
+
 const bgMusic = new Audio('https://venturedesigner.github.io/project1-grupo4/assets/sounds/synapse.mp3')
 const effectGoal = new Audio('https://venturedesigner.github.io/project1-grupo4/assets/sounds/warp.wav')
 const effectHit = new Audio('https://venturedesigner.github.io/project1-grupo4/assets/sounds/hit.wav')
@@ -38,12 +39,12 @@ function collision (targetObj, collidedObj) {
   const targetObjtop2D = targetObj.top + ((targetObj.height * 3) / 4)
   const targetObjheight2D = targetObj.height / 4
   const collidedObjtop2D = collidedObj.top + ((collidedObj.height * 3) / 4)
-
+  const collidedObjheight2D = collidedObj.height / 4
 
   if ((targetObj.left < collidedObj.left + collidedObj.width) &&
-    (targetObj.top < collidedObj.top + collidedObj.height) &&
+    (targetObjtop2D < collidedObjtop2D + collidedObjheight2D) &&
     (collidedObj.left < targetObj.left + targetObj.width) &&
-    (collidedObj.top < targetObj.top + targetObj.height)) {
+    (collidedObjtop2D < targetObjtop2D + targetObjheight2D)) {
     return true
   } else {
     return false
@@ -170,6 +171,19 @@ function animate() {
         effectHitWall.play()
       } else {
         player.move()
+      }
+    }
+
+    for (let i = 0; i < enemies.length; i++) {
+      if (enemies[i].getDirection !== 0) {
+        const enemyNextPos = enemies[i].getNextPosition()
+        if (collision(enemyNextPos, player)) {
+          effectHit.play()
+          effectFail.play()
+          retry()
+        } else {
+          enemies[i].move()
+        }
       }
     }
 

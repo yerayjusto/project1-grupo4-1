@@ -51,7 +51,7 @@ const STAGES = {
         top: 0,
         left: 0,
         width: 640,
-        height: 25,
+        height: 70,
         id: 'obstacle4',
         clase: 'wall'
       }
